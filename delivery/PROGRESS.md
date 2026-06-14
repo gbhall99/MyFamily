@@ -2,6 +2,14 @@
 
 Running record of the autonomous delivery loop (see `../docs/DELIVERY_PROMPT.md`). Newest first.
 
+## Iteration 5 — 2026-06-14 · Screen-spec audits + content lint
+`packages/ui`: a declarative **screen-spec model** with automated **design audits** (contrast,
+touch-target, state-coverage, colour-independence) run over the real **Today/Daily-Brief** and
+**Approve** screens in light + dark; the member-identity audit mandates the non-colour initial; a
+**content/tone lint** bans guilt/urgency language and checks for a single clear next step.
+**Verify:** 59/59 tests. **Ledger: PASS 2 → 8** (AC-D1, AC-D2, AC-D6, AC-D9, AC-DA1, AC-DA2 now have
+screen-level, CI-gated evidence); IN-PROGRESS 27, BLOCKED 5, TODO 23.
+
 ## Iteration 4 — 2026-06-14 · Brief, Fair-Share, access control, calm budget
 `packages/core`: **Daily Brief assembler** (caps to ≤3 decisions, 4 canonical sections — AC-P16/
 AC-DA6); **Fair-Share engine** counting anticipatory/cognitive load and routing the next task to the

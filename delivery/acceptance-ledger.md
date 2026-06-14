@@ -9,7 +9,7 @@
 > AC). Never mark `PASS` by assertion. Status values: `TODO · IN-PROGRESS · PASS · FAIL · BLOCKED`.
 
 ## Summary
-`PASS 2 / TOTAL 63 · IN-PROGRESS 29 · BLOCKED 5 · FAIL 0 · TODO 27`
+`PASS 8 / TOTAL 63 · IN-PROGRESS 27 · BLOCKED 5 · FAIL 0 · TODO 23`
 
 _Last updated: 2026-06-14 · Stage: iteration 1 — monorepo scaffolded (Expo+TS, approved), design-token
 system + verification (contrast, colour-blind, token-lint) + interaction logic (Approve chip,
@@ -75,15 +75,15 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 
 | ID | Criterion (short) | How verified | Status | Evidence |
 |---|---|---|---|---|
-| AC-D1 | Contrast passes §10 floors, light + dark | Automated contrast audit (both themes) | IN-PROGRESS | token-level: `packages/tokens/test/contrast.test.ts`; per-screen audit pending |
-| AC-D2 | Touch targets ≥44pt/48dp with spacing | Automated layout assertion | TODO | — |
+| AC-D1 | Contrast passes §10 floors, light + dark | Automated contrast audit (both themes) | PASS | `auditScreen` over all screens, L+D (`packages/ui/test/screen.test.ts`) + token tests; CI-gated, scope grows |
+| AC-D2 | Touch targets ≥44pt/48dp with spacing | Automated layout assertion | PASS | `auditScreen` target check (`screen.test.ts`), CI-gated, scope grows |
 | AC-D3 | Dynamic Type 200% — no truncation/overlap/lost function | Snapshot tests at 200% scale | TODO | — |
 | AC-D4 | Light/dark parity, dark not degraded | Dual-theme snapshot tests | TODO | — |
 | AC-D5 | Primary action reachable one-handed (thumb zone) | Layout-zone assertion | TODO | — |
-| AC-D6 | Full state set: default/loading/empty/error, calm | State-coverage tests | TODO | — |
+| AC-D6 | Full state set: default/loading/empty/error, calm | State-coverage tests | PASS | `auditScreen` requires all 4 states (`screen.test.ts`), CI-gated |
 | AC-D7 | Tokens only: zero hard-coded hex/spacing/type/radius/duration | Token-lint rule (CI) | PASS | `tooling/token-lint.mjs` enforced in `.github/workflows/ci.yml`; scope grows with app |
 | AC-D8 | Reduced-motion variant exists & honored; no meaning lost | Reduced-motion tests | TODO | — |
-| AC-D9 | Color independence; passes color-blind simulation | Sim check + non-color-cue lint | TODO | — |
+| AC-D9 | Color independence; passes color-blind simulation | Sim check + non-color-cue lint | PASS | accent sim (`member-accents.test.ts`) + `auditScreen` requires non-colour cue on status/identity (`screen.test.ts`) |
 | AC-D10 | Screen-reader: labels/roles/values/focus order (VoiceOver+TalkBack) | a11y-tree assertions | TODO | — |
 | AC-D11 | Localization-ready: pseudo-loc +30–40% no clip; RTL-safe; no baked text | Pseudo-loc + RTL snapshots | TODO | — |
 | AC-D12 | Calm budget: zero net default notifications, no attention-grabbing motion | Notification-budget check | IN-PROGRESS | `netDefaultPushes`=0 for routine (`iteration4.test.ts`); motion side at screen level |
@@ -93,8 +93,8 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 
 | ID | Area | Criterion (short) | How verified | Status | Evidence |
 |---|---|---|---|---|---|
-| AC-DA1 | Color & tokens | Every color resolves to a semantic token & passes contrast L/D; no raw hex | Token-lint + contrast audit | IN-PROGRESS | `token-lint.mjs` + `contrast.test.ts`; per-screen audit pending |
-| AC-DA2 | Color & tokens | 8 member accents distinguishable under deuter/protan/tritan + grayscale; non-color cue | Color-blind sim + cue lint | IN-PROGRESS | palette: `member-accents.test.ts` (sim ΔE≥6 both themes); non-colour cue at chip pending |
+| AC-DA1 | Color & tokens | Every color resolves to a semantic token & passes contrast L/D; no raw hex | Token-lint + contrast audit | PASS | `token-lint.mjs` + per-screen `auditScreen` contrast L/D (`screen.test.ts`) |
+| AC-DA2 | Color & tokens | 8 member accents distinguishable under deuter/protan/tritan + grayscale; non-color cue | Color-blind sim + cue lint | PASS | palette sim ΔE≥6 (`member-accents.test.ts`) + screen audit mandates the initial cue (`screen.test.ts`) |
 | AC-DA3 | Typography | Text at 200% fully readable, no overlap/clip; roles map to scale (no off-scale sizes) | Snapshot + style-audit | TODO | — |
 | AC-DA4 | Approve chip (hero) | Accept in one gesture; shows outcome; inline edit + undo; accept ≠ destructive weight | Component interaction tests | IN-PROGRESS | logic+style: `approve.test.ts`, `styles.ts` (brand≠danger weight); rendered chip + haptic pending |
 | AC-DA5 | Approve chip (hero) | On approve: calm confirm + gentle haptic, visible undo, action in activity log | Interaction + integration tests | IN-PROGRESS | logic: `approve.test.ts` (undo+log); haptic/confirm UI pending |
@@ -105,7 +105,7 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | AC-DA10 | Accessibility | Every shipped screen passes screen-reader: roles/values/order; calm live regions | a11y-tree assertions | TODO | — |
 | AC-DA11 | Platform & surfaces | Each surface follows OS conventions, keeps brand; Family-Display hides sensitive data | Surface review checklist + tests | IN-PROGRESS | `visibleOnFamilyDisplay` hides financial/health/personal (`iteration4.test.ts`); per-surface review pending |
 | AC-DA12 | Age/role modes | Modes differ in density/type/tone/actions; semantics/components/a11y floor identical; none below AA | Per-mode a11y + snapshot tests | TODO | — |
-| AC-DA13 | Content & tone | Copy states what/why, single next step, no guilt/urgency; error/empty recoverable | Copy-lint + review checklist | TODO | — |
+| AC-DA13 | Content & tone | Copy states what/why, single next step, no guilt/urgency; error/empty recoverable | Copy-lint + review checklist | IN-PROGRESS | `lintCopy` + `hasSingleClearAction` tested (`screen.test.ts`); error/empty copy review pending |
 
 ## F. Design — Review gate (DESIGN_SPEC §13.3, process)
 
