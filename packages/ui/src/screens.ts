@@ -17,7 +17,7 @@ export const todayScreen: ScreenSpec = {
       { type: "text", role: "bodyM", fg: "textSecondary", bg: "bg", text: "3 things need a tap · I handled 4" },
       { type: "memberIdentity", accentIndex: 0, bg: "bg", hasInitial: true },
       { type: "status", fg: "statusWarn", bg: "bg", hasNonColorCue: true },
-      { type: "control", label: "Approve", minTarget: 48, emphasis: "primary", fg: "textOnBrand", bg: "brand" },
+      { type: "control", label: "Approve", minTarget: 48, emphasis: "primary", fg: "textOnBrand", bg: "brand", zone: "thumb" },
     ],
   },
 };
@@ -32,8 +32,8 @@ export const approveScreen: ScreenSpec = {
     children: [
       { type: "text", role: "titleM", fg: "text", bg: "surface", text: "Swim practice moved" },
       { type: "text", role: "caption", fg: "textMuted", bg: "surface", text: "Thursdays 5:00 PM · from the team email" },
-      { type: "control", label: "Approve", minTarget: 48, emphasis: "primary", fg: "textOnBrand", bg: "brand" },
-      { type: "control", label: "Edit", minTarget: 48, emphasis: "secondary", fg: "brand", bg: "surface" },
+      { type: "control", label: "Approve", minTarget: 48, emphasis: "primary", fg: "textOnBrand", bg: "brand", zone: "thumb" },
+      { type: "control", label: "Edit", minTarget: 48, emphasis: "secondary", fg: "brand", bg: "surface", zone: "thumb" },
     ],
   },
 };

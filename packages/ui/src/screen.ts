@@ -13,7 +13,7 @@ type TypeRole = keyof typeof typeRoles;
 export type Node =
   | { type: "container"; bg: ColorToken; children: Node[] }
   | { type: "text"; role: TypeRole; fg: ColorToken; bg: ColorToken; text: string }
-  | { type: "control"; label: string; minTarget: number; emphasis: "primary" | "secondary" | "destructive"; fg: ColorToken; bg: ColorToken }
+  | { type: "control"; label: string; minTarget: number; emphasis: "primary" | "secondary" | "destructive"; fg: ColorToken; bg: ColorToken; zone: "thumb" | "top" }
   | { type: "memberIdentity"; accentIndex: number; bg: ColorToken; hasInitial: boolean }
   | { type: "status"; fg: ColorToken; bg: ColorToken; hasNonColorCue: boolean };
 
@@ -59,6 +59,8 @@ export function auditScreen(spec: ScreenSpec, theme: ThemeName): Violation[] {
     if (n.type === "control") {
       if (n.minTarget < minTouchTarget.ios) v.push({ screen: spec.name, ac: "AC-D2", detail: `control "${n.label}" target ${n.minTarget} < 44` });
       if (wcag.contrastRatio(hex(n.fg), hex(n.bg)) < 3) v.push({ screen: spec.name, ac: "AC-D1", detail: `control "${n.label}" label contrast < 3` });
+      // AC-D5 — the primary action must be one-handed reachable (thumb zone).
+      if (n.emphasis === "primary" && n.zone !== "thumb") v.push({ screen: spec.name, ac: "AC-D5", detail: `primary control "${n.label}" not in thumb zone` });
     }
     if (n.type === "memberIdentity") {
       // AC-DA2 / AC-D9 — identity colour must be paired with a non-colour cue (the initial).

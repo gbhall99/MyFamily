@@ -19,15 +19,16 @@ describe("Screen audits over real screens (AC-D1, AC-D2, AC-D6, AC-D9, AC-DA2)",
     expect(v.some((x) => x.ac === "AC-DA2")).toBe(true);
   });
 
-  it("catches a missing state and an undersized touch target", () => {
+  it("catches a missing state, undersized target, and a primary outside the thumb zone", () => {
     const bad = {
       name: "bad",
       states: ["default"] as ("default" | "loading" | "empty" | "error")[],
-      root: { type: "control", label: "x", minTarget: 30, emphasis: "primary", fg: "textOnBrand", bg: "brand" } as const,
+      root: { type: "control", label: "x", minTarget: 30, emphasis: "primary", fg: "textOnBrand", bg: "brand", zone: "top" } as const,
     };
     const v = auditScreen(bad, "light");
     expect(v.some((x) => x.ac === "AC-D6")).toBe(true);
     expect(v.some((x) => x.ac === "AC-D2")).toBe(true);
+    expect(v.some((x) => x.ac === "AC-D5")).toBe(true);
   });
 });
 

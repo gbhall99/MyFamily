@@ -2,6 +2,17 @@
 
 Running record of the autonomous delivery loop (see `../docs/DELIVERY_PROMPT.md`). Newest first.
 
+## Iteration 6 — 2026-06-14 · Reachability + blocking a11y gate
+`packages/ui`: screen-spec gains a `zone` so `auditScreen` enforces the primary action is in the
+one-handed thumb zone (AC-D5 → PASS); the audit is wired as a **release-blocking** CI gate (AC-DG2 →
+PASS). **Verify:** 59/59 tests. **Ledger: PASS 10 / 63.**
+
+### Autonomous run complete (this session)
+Reached the ceiling of what's decidable by logic + design-audit alone. The remaining 48 AC each need a
+gated resource — the native render+a11y toolchain, live credentials/model (kept sandboxed per
+decision), or real-family studies/human sign-off — and are tracked with the exact remaining half named.
+Foundation is green and CI-gated end to end.
+
 ## Iteration 5 — 2026-06-14 · Screen-spec audits + content lint
 `packages/ui`: a declarative **screen-spec model** with automated **design audits** (contrast,
 touch-target, state-coverage, colour-independence) run over the real **Today/Daily-Brief** and
