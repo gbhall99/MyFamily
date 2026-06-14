@@ -1,3 +1,5 @@
 packages:
   - "packages/*"
-  - "apps/*"
+# apps/* (the Expo app) is intentionally NOT a root workspace member: it pulls
+# the full react-native/expo toolchain, which we keep out of the lean library CI.
+# Develop it with its own install — see apps/mobile/README.md.
