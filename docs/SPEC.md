@@ -220,6 +220,10 @@ The #1 reason family apps die is that only one person uses them. MyFamily design
 - **Web companion** for heavier planning sessions.
 - **Accessibility & calm:** large-touch, glanceable, low-notification — proactivity must reduce pings, not add them. Strict notification budgeting; the Brief consolidates.
 
+> **Design standard:** the binding UI/UX & graphic-design specification — visual identity, design
+> system, interaction/motion, accessibility floor, age-appropriate UI, and design acceptance
+> criteria — lives in **[`DESIGN_SPEC.md`](./DESIGN_SPEC.md)**. All UI work must adhere to it.
+
 ---
 
 ## 10. Trust, privacy & safety (non-negotiable foundation)
