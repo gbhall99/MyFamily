@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="1180" viewBox="0 0 960 1180" font-family="-apple-system, 'Segoe UI', Roboto, Inter, sans-serif">
+  <!-- background -->
+  <rect width="960" height="1180" fill="#FBFAF8"/>
+  <rect x="0" y="0" width="960" height="120" fill="#2E7D8A"/>
+  <text x="48" y="62" fill="#FFFFFF" font-size="30" font-weight="700">MyFamily — Style Tile</text>
+  <text x="48" y="94" fill="#D7EBEF" font-size="16">Directional concept · pending brand review · governed by DESIGN_SPEC.md</text>
+
+  <!-- personality -->
+  <text x="48" y="168" fill="#1C1B1A" font-size="20" font-weight="600">Personality</text>
+  <text x="48" y="196" fill="#5B5954" font-size="16">Calm · Warm · Capable — a trusted family chief-of-staff. Not a toy, not enterprise-cold.</text>
+
+  <!-- Brand & neutrals -->
+  <text x="48" y="250" fill="#1C1B1A" font-size="20" font-weight="600">Brand &amp; neutral palette</text>
+  <g>
+    <rect x="48"  y="270" width="130" height="84" rx="12" fill="#2E7D8A"/>
+    <rect x="190" y="270" width="130" height="84" rx="12" fill="#5FB5C4"/>
+    <rect x="332" y="270" width="130" height="84" rx="12" fill="#FBFAF8" stroke="#E4E1DB"/>
+    <rect x="474" y="270" width="130" height="84" rx="12" fill="#FFFFFF" stroke="#E4E1DB"/>
+    <rect x="616" y="270" width="130" height="84" rx="12" fill="#1C1B1A"/>
+    <rect x="758" y="270" width="130" height="84" rx="12" fill="#15171A"/>
+    <text x="58"  y="372" fill="#5B5954" font-size="12">brand #2E7D8A</text>
+    <text x="200" y="372" fill="#5B5954" font-size="12">brand-dark</text>
+    <text x="342" y="372" fill="#5B5954" font-size="12">bg #FBFAF8</text>
+    <text x="484" y="372" fill="#5B5954" font-size="12">surface</text>
+    <text x="626" y="372" fill="#5B5954" font-size="12">text #1C1B1A</text>
+    <text x="768" y="372" fill="#5B5954" font-size="12">dark bg</text>
+  </g>
+
+  <!-- Status -->
+  <text x="48" y="420" fill="#1C1B1A" font-size="20" font-weight="600">Status</text>
+  <g>
+    <rect x="48"  y="440" width="200" height="56" rx="12" fill="#2F8F5B"/><text x="62" y="474" fill="#fff" font-size="14" font-weight="600">success</text>
+    <rect x="260" y="440" width="200" height="56" rx="12" fill="#B8860B"/><text x="274" y="474" fill="#fff" font-size="14" font-weight="600">warn</text>
+    <rect x="472" y="440" width="200" height="56" rx="12" fill="#C0492F"/><text x="486" y="474" fill="#fff" font-size="14" font-weight="600">danger</text>
+    <rect x="684" y="440" width="204" height="56" rx="12" fill="#2E7D8A"/><text x="698" y="474" fill="#fff" font-size="14" font-weight="600">info</text>
+  </g>
+
+  <!-- Member accents -->
+  <text x="48" y="552" fill="#1C1B1A" font-size="20" font-weight="600">Member accents (8 · colour-blind &amp; AA safe)</text>
+  <g>
+    <circle cx="76"  cy="600" r="26" fill="#3D7DD8"/>
+    <circle cx="148" cy="600" r="26" fill="#E0823B"/>
+    <circle cx="220" cy="600" r="26" fill="#4FA871"/>
+    <circle cx="292" cy="600" r="26" fill="#B5529E"/>
+    <circle cx="364" cy="600" r="26" fill="#C0492F"/>
+    <circle cx="436" cy="600" r="26" fill="#2BA3A3"/>
+    <circle cx="508" cy="600" r="26" fill="#8A6D3B"/>
+    <circle cx="580" cy="600" r="26" fill="#6C63C4"/>
+    <text x="50"  y="648" fill="#5B5954" font-size="12">1</text>
+    <text x="122" y="648" fill="#5B5954" font-size="12">2</text>
+    <text x="194" y="648" fill="#5B5954" font-size="12">3</text>
+    <text x="266" y="648" fill="#5B5954" font-size="12">4</text>
+    <text x="338" y="648" fill="#5B5954" font-size="12">5</text>
+    <text x="410" y="648" fill="#5B5954" font-size="12">6</text>
+    <text x="482" y="648" fill="#5B5954" font-size="12">7</text>
+    <text x="554" y="648" fill="#5B5954" font-size="12">8</text>
+  </g>
+
+  <!-- Type scale -->
+  <text x="48" y="708" fill="#1C1B1A" font-size="20" font-weight="600">Type scale (humanist sans)</text>
+  <text x="48" y="748" fill="#1C1B1A" font-size="28" font-weight="700">Title — Tuesday looks busy</text>
+  <text x="48" y="784" fill="#1C1B1A" font-size="22" font-weight="600">Section — 2 conflicts caught</text>
+  <text x="48" y="816" fill="#1C1B1A" font-size="17">Body — I found swim moved to Thursdays. Update the calendar?</text>
+  <text x="48" y="844" fill="#5B5954" font-size="13" font-weight="500">LABEL · CAPTION · metadata 8:15 AM</text>
+
+  <!-- Approve chip (hero) -->
+  <text x="48" y="908" fill="#1C1B1A" font-size="20" font-weight="600">Hero — one-tap Approve</text>
+  <rect x="48" y="928" width="430" height="180" rx="20" fill="#FFFFFF" stroke="#E4E1DB"/>
+  <circle cx="80" cy="966" r="14" fill="#3D7DD8"/>
+  <text x="106" y="964" fill="#1C1B1A" font-size="16" font-weight="600">Swim practice moved</text>
+  <text x="106" y="986" fill="#5B5954" font-size="13">Thursdays 5:00 PM · from the team email</text>
+  <rect x="68"  y="1016" width="150" height="48" rx="999" fill="#2E7D8A"/>
+  <text x="103" y="1046" fill="#FFFFFF" font-size="15" font-weight="600">Approve</text>
+  <rect x="230" y="1016" width="100" height="48" rx="999" fill="#FFFFFF" stroke="#CFCBC3"/>
+  <text x="258" y="1046" fill="#2E7D8A" font-size="15" font-weight="600">Edit</text>
+  <rect x="342" y="1016" width="110" height="48" rx="999" fill="#FFFFFF" stroke="#CFCBC3"/>
+  <text x="364" y="1046" fill="#5B5954" font-size="15" font-weight="600">Decline</text>
+  <text x="68" y="1092" fill="#9A968E" font-size="12">Single gesture · reversible · logged in activity feed</text>
+
+  <!-- Daily Brief card -->
+  <text x="510" y="908" fill="#1C1B1A" font-size="20" font-weight="600">Daily Brief card</text>
+  <rect x="510" y="928" width="402" height="180" rx="20" fill="#2E7D8A"/>
+  <text x="534" y="966" fill="#FFFFFF" font-size="18" font-weight="700">Good morning ☀</text>
+  <text x="534" y="992" fill="#D7EBEF" font-size="13">3 things need a tap · I already handled 4</text>
+  <rect x="534" y="1010" width="354" height="34" rx="10" fill="#FFFFFF" opacity="0.16"/>
+  <text x="546" y="1032" fill="#FFFFFF" font-size="13">⚠ Two pickups clash at 5:00 — sort the driver</text>
+  <rect x="534" y="1052" width="354" height="34" rx="10" fill="#FFFFFF" opacity="0.16"/>
+  <text x="546" y="1074" fill="#FFFFFF" font-size="13">🛒 Grocery order ready — confirm for tonight</text>
+
+  <!-- footer tokens -->
+  <text x="48" y="1150" fill="#5B5954" font-size="13">Radius 8/12/20/pill · Spacing 4·8·12·16·24·32 · Motion 120/200/320ms · WCAG 2.2 AA floor · light + dark parity</text>
+</svg>
