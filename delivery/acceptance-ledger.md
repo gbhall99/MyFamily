@@ -9,7 +9,7 @@
 > AC). Never mark `PASS` by assertion. Status values: `TODO · IN-PROGRESS · PASS · FAIL · BLOCKED`.
 
 ## Summary
-`PASS 2 / TOTAL 63 · IN-PROGRESS 15 · BLOCKED 5 · FAIL 0 · TODO 41`
+`PASS 2 / TOTAL 63 · IN-PROGRESS 19 · BLOCKED 5 · FAIL 0 · TODO 37`
 
 _Last updated: 2026-06-14 · Stage: iteration 1 — monorepo scaffolded (Expo+TS, approved), design-token
 system + verification (contrast, colour-blind, token-lint) + interaction logic (Approve chip,
@@ -47,11 +47,11 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | AC-P4 | Calendar & Conflict radar | Two-way Google/Apple/Outlook sync reconciles < 60s, no duplicates | Integration test vs sandbox calendars | TODO | — |
 | AC-P5 | Fair-Share | Load breakdown includes anticipatory/cognitive work; "feels accurate" ≥80% user tests | Proxy metric test **+ human-validation gate** | TODO | — |
 | AC-P6 | Fair-Share | New task routed to under-loaded member in-context; non-primary completion rises over 4-wk test | E2E routing test **+ longitudinal study gate** | TODO | — |
-| AC-P7 | Meals → grocery | Plan respects all hard constraints (allergies 100%) and fits the night's time window | Constraint-solver unit/property tests | TODO | — |
-| AC-P8 | Meals → grocery | Approved plan → correct cart + order placed; plan change updates order/list | E2E vs sandbox grocery integration | TODO | — |
-| AC-P9 | Comms & drafts | Thread summary contains every action item, zero fabricated commitments | Summarization eval on labeled threads | TODO | — |
-| AC-P10 | Comms & drafts | Drafted message always shown for approval unless category set full-auto | Behavior tests across autonomy levels | TODO | — |
-| AC-P11 | Inbox / doc triage | ≥90% true action items → dated assigned tasks; ≤1/20 false escalation | Triage eval on labeled inbox corpus | TODO | — |
+| AC-P7 | Meals → grocery | Plan respects all hard constraints (allergies 100%) and fits the night's time window | Constraint-solver unit/property tests | IN-PROGRESS | `planWeek` tested (allergen-safe + time-fit): `packages/core/test/meals.test.ts` |
+| AC-P8 | Meals → grocery | Approved plan → correct cart + order placed; plan change updates order/list | E2E vs sandbox grocery integration | TODO | needs sandbox grocery integration |
+| AC-P9 | Comms & drafts | Thread summary contains every action item, zero fabricated commitments | Summarization eval on labeled threads | IN-PROGRESS | `summariseActionItems` tested (verbatim, no fabrication): `packages/core/test/comms.test.ts` |
+| AC-P10 | Comms & drafts | Drafted message always shown for approval unless category set full-auto | Behavior tests across autonomy levels | IN-PROGRESS | `draftGate` tested across levels: `packages/core/test/comms.test.ts` |
+| AC-P11 | Inbox / doc triage | ≥90% true action items → dated assigned tasks; ≤1/20 false escalation | Triage eval on labeled inbox corpus | IN-PROGRESS | metric harness ≥0.9 recall / ≤0.05 false-escalation on fixture: `triage.test.ts`; real corpus + model pending |
 | AC-P12 | Inbox / doc triage | Permission-slip tracked to completion; doc retrievable < 5s at point of need | E2E + search latency test | TODO | — |
 | AC-P13 | Agentic layer | NL goal → approvable, editable plan (date/logistics/invites/tasks/provisioning) | E2E co-pilot plan test | TODO | — |
 | AC-P14 | Agentic layer | Autonomy level obeyed exactly (Notify never acts; Full-auto never interrupts); visible & revocable | Behavior matrix tests | IN-PROGRESS | logic: `packages/ui/test/autonomy.test.ts`; control UI pending |
