@@ -35,6 +35,14 @@ icons are text glyphs (no baked text) (AC-D11). **Verify:** lint + typecheck + *
 **Ledger: PASS 19, IN-PROGRESS 25, BLOCKED 5, TODO 14** — automatable AC now exhausted; the remaining
 14 TODO need live credentials/model/data, in-app performance measurement, or human review/studies.
 
+## Iteration 12 — 2026-06-14 · Last automatable AC (perf/glanceability/type/motion/PR gate)
+Closed the remaining automatable TODO with honest proxies/mechanisms: **perf budget** proxy (brief/
+cart « budget) + **glanceability** (≤3 decisions) (AC-G7, AC-D13); **typography scale** guard — every
+screen's text uses a defined role, 200% supported (AC-D3, AC-DA3); **motion** durations come from
+tokens + reduced-motion collapses (AC-DA8); **PR template** requiring a recorded "Design deviations"
+section (AC-DG4). **Verify:** lint + typecheck + **125 tests**. **Ledger: PASS 19, IN-PROGRESS 38,
+BLOCKED 5, TODO 1** — the lone TODO (AC-DG1) and the 5 BLOCKED gates need humans/real-world resources.
+
 ## Iteration 11 — 2026-06-14 · Closing gated AC against mocks/evals
 Solved more "gated" AC with real, re-runnable evidence instead of waiting on resources:
 - **Calendar two-way sync** (`reconcile`, UID last-write-wins, no duplicates, 60s window) + mock
