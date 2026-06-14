@@ -11,3 +11,4 @@ export * from "./notify.js";
 export * from "./channels.js";
 export * from "./documents.js";
 export * from "./planner.js";
+export * from "./privacy.js";

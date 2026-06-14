@@ -9,7 +9,7 @@
 > AC). Never mark `PASS` by assertion. Status values: `TODO · IN-PROGRESS · PASS · FAIL · BLOCKED`.
 
 ## Summary
-`PASS 19 / TOTAL 63 · IN-PROGRESS 23 · BLOCKED 5 · FAIL 0 · TODO 16`
+`PASS 19 / TOTAL 63 · IN-PROGRESS 25 · BLOCKED 5 · FAIL 0 · TODO 14`
 
 > **Render layer landed.** A react-native-web + Testing-Library + jsdom harness (under vitest) now
 > renders the real RN components and asserts their accessibility tree, so the design AC have moved
@@ -43,7 +43,7 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | AC-G5 | Every app action is logged, plain-language explained, undoable; no irreversible/financial w/o approval | Activity-log integration tests + guardrail tests | IN-PROGRESS | mechanism: `packages/ui` approve+activityLog (`test/approve.test.ts`); E2E pending |
 | AC-G6 | Calm: zero net default notifications; non-urgent → Daily Brief | Automated notification-budget check | IN-PROGRESS | `notify` routing + `netDefaultPushes`=0 for routine: `test/iteration4.test.ts` |
 | AC-G7 | Accessible (WCAG AA), one-handed, glanceable; primary surface interactive < 2s | a11y audit + perf budget | TODO | — |
-| AC-G8 | Privacy by default: minimal kids' data, none for training, role-scoped; privacy review | Privacy review + data-flow tests | TODO | — |
+| AC-G8 | Privacy by default: minimal kids' data, none for training, role-scoped; privacy review | Privacy review + data-flow tests | IN-PROGRESS | `minimiseChildData`, `USED_FOR_TRAINING=false`, disclosed retention (`privacy.test.ts`) + role scoping; formal privacy review is the human half |
 | AC-G9 | Graceful failure: AI defers when unsure; confidence threshold + human-in-loop | Unit tests on confidence gating | IN-PROGRESS | `packages/core` capture confidence gate (`test/capture.test.ts`); live model pending |
 
 ## B. Product — Per-capability AC (SPEC §16.2)
@@ -94,7 +94,7 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | AC-D8 | Reduced-motion variant exists & honored; no meaning lost | Reduced-motion tests | PASS | `motionDuration` collapses every duration to instant under reduced motion (`components.test.tsx`); OS-flag wiring in app |
 | AC-D9 | Color independence; passes color-blind simulation | Sim check + non-color-cue lint | PASS | accent sim (`member-accents.test.ts`) + `auditScreen` requires non-colour cue on status/identity (`screen.test.ts`) |
 | AC-D10 | Screen-reader: labels/roles/values/focus order (VoiceOver+TalkBack) | a11y-tree assertions | IN-PROGRESS | automated a11y-tree asserts roles/labels/checked on rendered components (`ApproveChip`/`components` tests); device VoiceOver/TalkBack sign-off pending |
-| AC-D11 | Localization-ready: pseudo-loc +30–40% no clip; RTL-safe; no baked text | Pseudo-loc + RTL snapshots | TODO | — |
+| AC-D11 | Localization-ready: pseudo-loc +30–40% no clip; RTL-safe; no baked text | Pseudo-loc + RTL snapshots | IN-PROGRESS | `pseudoLocalize`/`fitsBudget` + labels fit budget (`localization.test.ts`); icons are text glyphs (no baked text); RTL visual check needs a render runner |
 | AC-D12 | Calm budget: zero net default notifications, no attention-grabbing motion | Notification-budget check | IN-PROGRESS | `netDefaultPushes`=0 for routine (`iteration4.test.ts`); motion side at screen level |
 | AC-D13 | Glanceable: primary value comprehensible < 3s | Comprehension proxy **+ human-validation** | TODO | — |
 

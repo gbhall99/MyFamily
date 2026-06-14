@@ -28,6 +28,13 @@ reachable (AC-G2); **document retrieval** + permission-slip task tracking (AC-P1
 turning an NL goal into an approvable, editable 5-section plan (AC-P13). **Verify:** lint + typecheck
 + **79 tests**. **Ledger: PASS 19, IN-PROGRESS 23, TODO 16.**
 
+## Iteration 10 — 2026-06-14 · Privacy defaults + localization readiness
+`packages/core`: **privacy by default** — under-13 data minimisation, `USED_FOR_TRAINING=false`,
+disclosed per-type retention (AC-G8). `packages/ui`: **pseudo-localization** + label budget check;
+icons are text glyphs (no baked text) (AC-D11). **Verify:** lint + typecheck + **85 tests**.
+**Ledger: PASS 19, IN-PROGRESS 25, BLOCKED 5, TODO 14** — automatable AC now exhausted; the remaining
+14 TODO need live credentials/model/data, in-app performance measurement, or human review/studies.
+
 ## Iteration 6 — 2026-06-14 · Reachability + blocking a11y gate
 `packages/ui`: screen-spec gains a `zone` so `auditScreen` enforces the primary action is in the
 one-handed thumb zone (AC-D5 → PASS); the audit is wired as a **release-blocking** CI gate (AC-DG2 →
