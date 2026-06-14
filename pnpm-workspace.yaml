@@ -1,3 +1,7 @@
 packages:
   - "packages/*"
-  - "apps/*"
+  - "apps/web"
+# apps/mobile (the Expo native app) is intentionally NOT a root workspace member:
+# it pulls the full react-native/expo toolchain, which we keep out of the lean
+# library CI. The web companion (apps/web) is lightweight (Vite + react-native-web)
+# and IS part of the workspace so it can be built and deployed to Vercel.

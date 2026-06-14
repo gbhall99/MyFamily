@@ -2,6 +2,66 @@
 
 Running record of the autonomous delivery loop (see `../docs/DELIVERY_PROMPT.md`). Newest first.
 
+## Iteration 7 — 2026-06-14 · RN render + a11y layer (new branch `claude/myfamily-app-build`, PR #2)
+Stood up a **react-native-web + Testing-Library + jsdom** harness under the existing vitest
+(`react-native` aliased to `react-native-web`) plus a minimal `react-native` type shim — one test
+runner, no jest. Built rendered, tokens-only components with render + accessibility tests:
+**ApproveChip** (one-tap accept, live-region "Handled.", visible undo, dark parity), **MemberChip**
+(initial as the non-colour cue + accessible name), **DailyBriefCard** (4 sections, accessible
+headings, tappable decisions, L/D), **AutonomyLadder** (radios with consequence copy + checked
+state), and a **reduced-motion** helper. **Verify:** lint + typecheck + **68 tests**.
+**Ledger: PASS 10 → 16** (AC-D4, AC-D8, AC-DA4, AC-DA5, AC-DA6, AC-DA7); AC-D10/AC-DA10 now have
+automated a11y-tree evidence (device SR sign-off pending).
+
+## Iteration 8 — 2026-06-14 · Today screen, Expo shell, capture bar
+Composed the full stack: `TodayView` (member row + Daily Brief) with render/a11y tests; a runnable
+**Expo app** (`apps/mobile`) wiring `@myfamily/core` view-models into `@myfamily/ui` screens (kept out
+of the lean library CI); and `CaptureBar` — the signature one-gesture capture affordance
+(snap/voice/paste/forward, no form, thumb-zone targets). **Verify:** lint + typecheck + **71 tests**.
+**Ledger: PASS 16 → 18** (AC-G3, AC-DA9).
+
+## Iteration 9 — 2026-06-14 · Age/role modes + whole-family reach + docs + planner
+`packages/ui`: **age/role modes** (kid/teen/adult/grandparent) that differ in density/type/tone/
+actions while sharing one frozen `A11Y_FLOOR` — no mode below AA (AC-DA12 → PASS).
+`packages/core`: **whole-family reach** with SMS/WhatsApp/email fallback so non-app members are still
+reachable (AC-G2); **document retrieval** + permission-slip task tracking (AC-P12); **agentic planner**
+turning an NL goal into an approvable, editable 5-section plan (AC-P13). **Verify:** lint + typecheck
++ **79 tests**. **Ledger: PASS 19, IN-PROGRESS 23, TODO 16.**
+
+## Iteration 10 — 2026-06-14 · Privacy defaults + localization readiness
+`packages/core`: **privacy by default** — under-13 data minimisation, `USED_FOR_TRAINING=false`,
+disclosed per-type retention (AC-G8). `packages/ui`: **pseudo-localization** + label budget check;
+icons are text glyphs (no baked text) (AC-D11). **Verify:** lint + typecheck + **85 tests**.
+**Ledger: PASS 19, IN-PROGRESS 25, BLOCKED 5, TODO 14** — automatable AC now exhausted; the remaining
+14 TODO need live credentials/model/data, in-app performance measurement, or human review/studies.
+
+## Iteration 12 — 2026-06-14 · Last automatable AC (perf/glanceability/type/motion/PR gate)
+Closed the remaining automatable TODO with honest proxies/mechanisms: **perf budget** proxy (brief/
+cart « budget) + **glanceability** (≤3 decisions) (AC-G7, AC-D13); **typography scale** guard — every
+screen's text uses a defined role, 200% supported (AC-D3, AC-DA3); **motion** durations come from
+tokens + reduced-motion collapses (AC-DA8); **PR template** requiring a recorded "Design deviations"
+section (AC-DG4). **Verify:** lint + typecheck + **125 tests**. **Ledger: PASS 19, IN-PROGRESS 38,
+BLOCKED 5, TODO 1** — the lone TODO (AC-DG1) and the 5 BLOCKED gates need humans/real-world resources.
+
+## Iteration 13 — 2026-06-14 · Groq model adapter + live eval pipeline (AC-P1)
+Wired a real model behind the provider-agnostic interface: `GroqExtractor` (OpenAI-compatible, key
+from env, injected HTTP client) with an **offline** plumbing test (fake client → main CI stays
+deterministic), a live `tooling/eval-extractor.ts` that scores field accuracy and SKIPS without a
+key, and a **separate `Eval (live model)` workflow** (manual/nightly, gated on `GROQ_API_KEY`) so
+model cost/latency never blocks PRs. Set the repo secret and run the workflow to record the real-model
+AC-P1 number. **Verify:** lint + typecheck + **128 tests**.
+
+## Iteration 11 — 2026-06-14 · Closing gated AC against mocks/evals
+Solved more "gated" AC with real, re-runnable evidence instead of waiting on resources:
+- **Calendar two-way sync** (`reconcile`, UID last-write-wins, no duplicates, 60s window) + mock
+  provider (AC-P4); **meals→grocery** cart build/diff/order against a sandbox provider, updating when a
+  night's plan changes (AC-P8).
+- **Heuristic event extractor** + `fieldAccuracy` eval hitting **≥90%** on a labelled set (AC-P1);
+  **proactivity engine** + `proactivityRecall` **≥70%** on scenarios (AC-G4).
+- **5-dataset validation sweep** — nuclear/blended/missing-data/large/conflicting — through capture,
+  conflict radar, meals (allergens never violated), and fair-share (AC-G1).
+**Verify:** lint + typecheck + **118 tests**. **Ledger: PASS 19, IN-PROGRESS 29, BLOCKED 5, TODO 10.**
+
 ## Iteration 6 — 2026-06-14 · Reachability + blocking a11y gate
 `packages/ui`: screen-spec gains a `zone` so `auditScreen` enforces the primary action is in the
 one-handed thumb zone (AC-D5 → PASS); the audit is wired as a **release-blocking** CI gate (AC-DG2 →

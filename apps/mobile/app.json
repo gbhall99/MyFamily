@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "MyFamily",
+    "slug": "myfamily",
+    "scheme": "myfamily",
+    "version": "0.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": { "supportsTablet": true },
+    "android": { "adaptiveIcon": {} },
+    "web": { "bundler": "metro" }
+  }
+}

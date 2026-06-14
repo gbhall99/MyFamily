@@ -23,3 +23,5 @@ jobs:
         run: pnpm run typecheck
       - name: tests (token contrast + member accents + ui logic)
         run: pnpm run test
+      - name: build web companion (deployable to Vercel)
+        run: pnpm --filter @myfamily/web build
