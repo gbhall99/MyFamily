@@ -12,3 +12,7 @@ export * from "./channels.js";
 export * from "./documents.js";
 export * from "./planner.js";
 export * from "./privacy.js";
+export * from "./sync.js";
+export * from "./grocery.js";
+export * from "./extractor.js";
+export * from "./proactivity.js";

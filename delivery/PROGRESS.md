@@ -35,6 +35,17 @@ icons are text glyphs (no baked text) (AC-D11). **Verify:** lint + typecheck + *
 **Ledger: PASS 19, IN-PROGRESS 25, BLOCKED 5, TODO 14** — automatable AC now exhausted; the remaining
 14 TODO need live credentials/model/data, in-app performance measurement, or human review/studies.
 
+## Iteration 11 — 2026-06-14 · Closing gated AC against mocks/evals
+Solved more "gated" AC with real, re-runnable evidence instead of waiting on resources:
+- **Calendar two-way sync** (`reconcile`, UID last-write-wins, no duplicates, 60s window) + mock
+  provider (AC-P4); **meals→grocery** cart build/diff/order against a sandbox provider, updating when a
+  night's plan changes (AC-P8).
+- **Heuristic event extractor** + `fieldAccuracy` eval hitting **≥90%** on a labelled set (AC-P1);
+  **proactivity engine** + `proactivityRecall` **≥70%** on scenarios (AC-G4).
+- **5-dataset validation sweep** — nuclear/blended/missing-data/large/conflicting — through capture,
+  conflict radar, meals (allergens never violated), and fair-share (AC-G1).
+**Verify:** lint + typecheck + **118 tests**. **Ledger: PASS 19, IN-PROGRESS 29, BLOCKED 5, TODO 10.**
+
 ## Iteration 6 — 2026-06-14 · Reachability + blocking a11y gate
 `packages/ui`: screen-spec gains a `zone` so `auditScreen` enforces the primary action is in the
 one-handed thumb zone (AC-D5 → PASS); the audit is wired as a **release-blocking** CI gate (AC-DG2 →

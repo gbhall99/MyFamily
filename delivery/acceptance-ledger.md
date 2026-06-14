@@ -9,7 +9,7 @@
 > AC). Never mark `PASS` by assertion. Status values: `TODO · IN-PROGRESS · PASS · FAIL · BLOCKED`.
 
 ## Summary
-`PASS 19 / TOTAL 63 · IN-PROGRESS 25 · BLOCKED 5 · FAIL 0 · TODO 14`
+`PASS 19 / TOTAL 63 · IN-PROGRESS 29 · BLOCKED 5 · FAIL 0 · TODO 10`
 
 > **Render layer landed.** A react-native-web + Testing-Library + jsdom harness (under vitest) now
 > renders the real RN components and asserts their accessibility tree, so the design AC have moved
@@ -36,10 +36,10 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 
 | ID | Criterion (short) | How verified | Status | Evidence |
 |---|---|---|---|---|
-| AC-G1 | Validated on ≥5 realistic family datasets incl. a messy/edge case | Integration tests over dataset fixtures | TODO | — |
+| AC-G1 | Validated on ≥5 realistic family datasets incl. a messy/edge case | Integration tests over dataset fixtures | IN-PROGRESS | 5-dataset sweep (nuclear/blended/missing/large/conflicting) over capture+conflict+meals+fairshare (`datasets.test.ts`); real datasets feed same harness |
 | AC-G2 | Whole-family: non-primary members act without setup/account (push/SMS fallback) | E2E test of fallback channels | IN-PROGRESS | `reachChannel`/`everyoneReachable` fallback logic (`iteration9.test.ts`); live SMS/push delivery needs creds |
 | AC-G3 | Capture cost ≤ 1 gesture (photo/forward/paste/voice), never a required form | UX flow test + lint on capture entry points | PASS | `core` capture pipeline (4 input kinds) + rendered `CaptureBar` one-tap actions, no textbox/form (`CaptureBar.test.tsx`) |
-| AC-G4 | Proactive: surfaces the right thing before asked in ≥70% of relevant cases | Eval harness over scenario set | TODO | — |
+| AC-G4 | Proactive: surfaces the right thing before asked in ≥70% of relevant cases | Eval harness over scenario set | IN-PROGRESS | `surfaceProactive` + `proactivityRecall` ≥70% on scenarios, silent when quiet (`proactivity.test.ts`); production data is the remaining half |
 | AC-G5 | Every app action is logged, plain-language explained, undoable; no irreversible/financial w/o approval | Activity-log integration tests + guardrail tests | IN-PROGRESS | mechanism: `packages/ui` approve+activityLog (`test/approve.test.ts`); E2E pending |
 | AC-G6 | Calm: zero net default notifications; non-urgent → Daily Brief | Automated notification-budget check | IN-PROGRESS | `notify` routing + `netDefaultPushes`=0 for routine: `test/iteration4.test.ts` |
 | AC-G7 | Accessible (WCAG AA), one-handed, glanceable; primary surface interactive < 2s | a11y audit + perf budget | TODO | — |
@@ -50,14 +50,14 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 
 | ID | Capability | Criterion (short) | How verified | Status | Evidence |
 |---|---|---|---|---|---|
-| AC-P1 | Family Brain & Capture | Flyer photo → event (title/date/time/loc/child) ≥90% fields, <10s, ≤1 correction tap | Extraction eval on labeled fixtures | IN-PROGRESS | pipeline + extractor interface built (`packages/core` capture); ≥90% accuracy eval needs live model |
+| AC-P1 | Family Brain & Capture | Flyer photo → event (title/date/time/loc/child) ≥90% fields, <10s, ≤1 correction tap | Extraction eval on labeled fixtures | IN-PROGRESS | heuristic `makeExtractor` + `fieldAccuracy` ≥90% on labelled set (`extractor.test.ts`); messy real-world OCR needs the model |
 | AC-P2 | Family Brain & Capture | Duplicate provider merged or flagged; never a silent conflicting duplicate | Unit/integration entity-resolution tests | IN-PROGRESS | `resolveProvider` tested (match/ambiguous/created): `packages/core/test/capture.test.ts` |
 | AC-P3 | Calendar & Conflict radar | Same-driver/car clash detected & explained before the day; ≥1 one-tap resolution | Integration tests on conflict scenarios | IN-PROGRESS | `detectConflicts` tested (before-day, resolutions): `packages/core/test/conflict.test.ts`; one-tap UI pending |
-| AC-P4 | Calendar & Conflict radar | Two-way Google/Apple/Outlook sync reconciles < 60s, no duplicates | Integration test vs sandbox calendars | TODO | — |
+| AC-P4 | Calendar & Conflict radar | Two-way Google/Apple/Outlook sync reconciles < 60s, no duplicates | Integration test vs sandbox calendars | IN-PROGRESS | `reconcile` (UID last-write-wins, no dupes) + `MockCalendarProvider` + 60s-window check (`integrations.test.ts`); live provider creds remain |
 | AC-P5 | Fair-Share | Load breakdown includes anticipatory/cognitive work; "feels accurate" ≥80% user tests | Proxy metric test **+ human-validation gate** | IN-PROGRESS | `computeLoad`/`includesCognitiveLoad` tested (`iteration4.test.ts`); ≥80% "feels accurate" needs user study |
 | AC-P6 | Fair-Share | New task routed to under-loaded member in-context; non-primary completion rises over 4-wk test | E2E routing test **+ longitudinal study gate** | IN-PROGRESS | `nextAssignee` routes to under-loaded member (`iteration4.test.ts`); 4-wk study is a §7 gate |
 | AC-P7 | Meals → grocery | Plan respects all hard constraints (allergies 100%) and fits the night's time window | Constraint-solver unit/property tests | IN-PROGRESS | `planWeek` tested (allergen-safe + time-fit): `packages/core/test/meals.test.ts` |
-| AC-P8 | Meals → grocery | Approved plan → correct cart + order placed; plan change updates order/list | E2E vs sandbox grocery integration | TODO | needs sandbox grocery integration |
+| AC-P8 | Meals → grocery | Approved plan → correct cart + order placed; plan change updates order/list | E2E vs sandbox grocery integration | IN-PROGRESS | `buildCart`/`diffCart`/`MockGroceryProvider` place + update on plan change (`integrations.test.ts`); live ordering creds remain |
 | AC-P9 | Comms & drafts | Thread summary contains every action item, zero fabricated commitments | Summarization eval on labeled threads | IN-PROGRESS | `summariseActionItems` tested (verbatim, no fabrication): `packages/core/test/comms.test.ts` |
 | AC-P10 | Comms & drafts | Drafted message always shown for approval unless category set full-auto | Behavior tests across autonomy levels | IN-PROGRESS | `draftGate` tested across levels: `packages/core/test/comms.test.ts` |
 | AC-P11 | Inbox / doc triage | ≥90% true action items → dated assigned tasks; ≤1/20 false escalation | Triage eval on labeled inbox corpus | IN-PROGRESS | metric harness ≥0.9 recall / ≤0.05 false-escalation on fixture: `triage.test.ts`; real corpus + model pending |
