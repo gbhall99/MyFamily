@@ -2,6 +2,19 @@
 
 Running record of the autonomous delivery loop (see `../docs/DELIVERY_PROMPT.md`). Newest first.
 
+## Iteration 4 — 2026-06-14 · Brief, Fair-Share, access control, calm budget
+`packages/core`: **Daily Brief assembler** (caps to ≤3 decisions, 4 canonical sections — AC-P16/
+AC-DA6); **Fair-Share engine** counting anticipatory/cognitive load and routing the next task to the
+under-loaded member (AC-P5/P6); **role-scoped access** + teen-boundary honouring + Family-Display
+redaction of financial/health/personal (AC-P17/P18/P19/AC-DA11); **calm notification budget** —
+only urgent pushes, routine defers to the Brief, zero net default pushes (AC-G6/AC-D12).
+**Verify:** 53/53 tests. Ledger: PASS 2, IN-PROGRESS 29, BLOCKED 5, TODO 27.
+
+## Iteration 3 — 2026-06-14 · Meals, comms, triage
+`packages/core`: allergen-safe + time-fit meal solver (AC-P7); thread summariser with no fabrication
+(AC-P9); outgoing draft gate (AC-P10); inbox-triage metric harness ≥0.9 recall / ≤0.05 false-escalation
+(AC-P11). **Verify:** 44/44 tests.
+
 ## Iteration 2 — 2026-06-14 · CI fix + Family Brain core
 **Fixed:** CI failed (`pnpm/action-setup` rejected pnpm version specified in both the action and
 `packageManager`). Removed the action's `version` input so it reads `packageManager`.

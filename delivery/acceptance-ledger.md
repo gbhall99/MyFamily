@@ -9,7 +9,7 @@
 > AC). Never mark `PASS` by assertion. Status values: `TODO · IN-PROGRESS · PASS · FAIL · BLOCKED`.
 
 ## Summary
-`PASS 2 / TOTAL 63 · IN-PROGRESS 19 · BLOCKED 5 · FAIL 0 · TODO 37`
+`PASS 2 / TOTAL 63 · IN-PROGRESS 29 · BLOCKED 5 · FAIL 0 · TODO 27`
 
 _Last updated: 2026-06-14 · Stage: iteration 1 — monorepo scaffolded (Expo+TS, approved), design-token
 system + verification (contrast, colour-blind, token-lint) + interaction logic (Approve chip,
@@ -32,7 +32,7 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | AC-G3 | Capture cost ≤ 1 gesture (photo/forward/paste/voice), never a required form | UX flow test + lint on capture entry points | IN-PROGRESS | pipeline accepts photo/text/email/voice: `packages/core` capture (`test/capture.test.ts`); UI entry points pending |
 | AC-G4 | Proactive: surfaces the right thing before asked in ≥70% of relevant cases | Eval harness over scenario set | TODO | — |
 | AC-G5 | Every app action is logged, plain-language explained, undoable; no irreversible/financial w/o approval | Activity-log integration tests + guardrail tests | IN-PROGRESS | mechanism: `packages/ui` approve+activityLog (`test/approve.test.ts`); E2E pending |
-| AC-G6 | Calm: zero net default notifications; non-urgent → Daily Brief | Automated notification-budget check | TODO | — |
+| AC-G6 | Calm: zero net default notifications; non-urgent → Daily Brief | Automated notification-budget check | IN-PROGRESS | `notify` routing + `netDefaultPushes`=0 for routine: `test/iteration4.test.ts` |
 | AC-G7 | Accessible (WCAG AA), one-handed, glanceable; primary surface interactive < 2s | a11y audit + perf budget | TODO | — |
 | AC-G8 | Privacy by default: minimal kids' data, none for training, role-scoped; privacy review | Privacy review + data-flow tests | TODO | — |
 | AC-G9 | Graceful failure: AI defers when unsure; confidence threshold + human-in-loop | Unit tests on confidence gating | IN-PROGRESS | `packages/core` capture confidence gate (`test/capture.test.ts`); live model pending |
@@ -45,8 +45,8 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | AC-P2 | Family Brain & Capture | Duplicate provider merged or flagged; never a silent conflicting duplicate | Unit/integration entity-resolution tests | IN-PROGRESS | `resolveProvider` tested (match/ambiguous/created): `packages/core/test/capture.test.ts` |
 | AC-P3 | Calendar & Conflict radar | Same-driver/car clash detected & explained before the day; ≥1 one-tap resolution | Integration tests on conflict scenarios | IN-PROGRESS | `detectConflicts` tested (before-day, resolutions): `packages/core/test/conflict.test.ts`; one-tap UI pending |
 | AC-P4 | Calendar & Conflict radar | Two-way Google/Apple/Outlook sync reconciles < 60s, no duplicates | Integration test vs sandbox calendars | TODO | — |
-| AC-P5 | Fair-Share | Load breakdown includes anticipatory/cognitive work; "feels accurate" ≥80% user tests | Proxy metric test **+ human-validation gate** | TODO | — |
-| AC-P6 | Fair-Share | New task routed to under-loaded member in-context; non-primary completion rises over 4-wk test | E2E routing test **+ longitudinal study gate** | TODO | — |
+| AC-P5 | Fair-Share | Load breakdown includes anticipatory/cognitive work; "feels accurate" ≥80% user tests | Proxy metric test **+ human-validation gate** | IN-PROGRESS | `computeLoad`/`includesCognitiveLoad` tested (`iteration4.test.ts`); ≥80% "feels accurate" needs user study |
+| AC-P6 | Fair-Share | New task routed to under-loaded member in-context; non-primary completion rises over 4-wk test | E2E routing test **+ longitudinal study gate** | IN-PROGRESS | `nextAssignee` routes to under-loaded member (`iteration4.test.ts`); 4-wk study is a §7 gate |
 | AC-P7 | Meals → grocery | Plan respects all hard constraints (allergies 100%) and fits the night's time window | Constraint-solver unit/property tests | IN-PROGRESS | `planWeek` tested (allergen-safe + time-fit): `packages/core/test/meals.test.ts` |
 | AC-P8 | Meals → grocery | Approved plan → correct cart + order placed; plan change updates order/list | E2E vs sandbox grocery integration | TODO | needs sandbox grocery integration |
 | AC-P9 | Comms & drafts | Thread summary contains every action item, zero fabricated commitments | Summarization eval on labeled threads | IN-PROGRESS | `summariseActionItems` tested (verbatim, no fabrication): `packages/core/test/comms.test.ts` |
@@ -56,10 +56,10 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | AC-P13 | Agentic layer | NL goal → approvable, editable plan (date/logistics/invites/tasks/provisioning) | E2E co-pilot plan test | TODO | — |
 | AC-P14 | Agentic layer | Autonomy level obeyed exactly (Notify never acts; Full-auto never interrupts); visible & revocable | Behavior matrix tests | IN-PROGRESS | logic: `packages/ui/test/autonomy.test.ts`; control UI pending |
 | AC-P15 | Agentic layer | Every agent action in the activity log within seconds, with reason + undo | Activity-log integration tests | IN-PROGRESS | logic: `packages/ui/test/approve.test.ts` (logs reason+undo); live agent pending |
-| AC-P16 | Daily Brief | Brief shows logistics/conflicts/≤3 one-tap decisions/handled; readable <60s; opened ≥60% active days | Render test + comprehension proxy **+ usage-metric gate** | TODO | — |
-| AC-P17 | Trust & safety | Under-13: minimized data, verifiable consent, retention disclosed, provably excluded from training | Data-flow tests + privacy review | TODO | — |
-| AC-P18 | Trust & safety | Teen privacy boundaries (location/chat/visibility) honored, never silently overridden | Access-control tests | TODO | — |
-| AC-P19 | Trust & safety | Cross-member access role-scoped; verified by access-control test suite | Access-control test suite | TODO | — |
+| AC-P16 | Daily Brief | Brief shows logistics/conflicts/≤3 one-tap decisions/handled; readable <60s; opened ≥60% active days | Render test + comprehension proxy **+ usage-metric gate** | IN-PROGRESS | `assembleBrief` caps to ≤3, keeps 4 sections (`iteration4.test.ts`); render + usage metric pending |
+| AC-P17 | Trust & safety | Under-13: minimized data, verifiable consent, retention disclosed, provably excluded from training | Data-flow tests + privacy review | IN-PROGRESS | role scoping for child via `canAccess` (`iteration4.test.ts`); consent flow + privacy review pending |
+| AC-P18 | Trust & safety | Teen privacy boundaries (location/chat/visibility) honored, never silently overridden | Access-control tests | IN-PROGRESS | `teenBoundaryHonoured` tested (`iteration4.test.ts`); full chat/visibility coverage pending |
+| AC-P19 | Trust & safety | Cross-member access role-scoped; verified by access-control test suite | Access-control test suite | IN-PROGRESS | `canAccess` role scopes tested (`iteration4.test.ts`); expand to all resources |
 
 ## C. Product — Launch gates (SPEC §16.3, inherently human-validated)
 
@@ -86,7 +86,7 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | AC-D9 | Color independence; passes color-blind simulation | Sim check + non-color-cue lint | TODO | — |
 | AC-D10 | Screen-reader: labels/roles/values/focus order (VoiceOver+TalkBack) | a11y-tree assertions | TODO | — |
 | AC-D11 | Localization-ready: pseudo-loc +30–40% no clip; RTL-safe; no baked text | Pseudo-loc + RTL snapshots | TODO | — |
-| AC-D12 | Calm budget: zero net default notifications, no attention-grabbing motion | Notification-budget check | TODO | — |
+| AC-D12 | Calm budget: zero net default notifications, no attention-grabbing motion | Notification-budget check | IN-PROGRESS | `netDefaultPushes`=0 for routine (`iteration4.test.ts`); motion side at screen level |
 | AC-D13 | Glanceable: primary value comprehensible < 3s | Comprehension proxy **+ human-validation** | TODO | — |
 
 ## E. Design — Per-area AC (DESIGN_SPEC §13.2)
@@ -98,12 +98,12 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | AC-DA3 | Typography | Text at 200% fully readable, no overlap/clip; roles map to scale (no off-scale sizes) | Snapshot + style-audit | TODO | — |
 | AC-DA4 | Approve chip (hero) | Accept in one gesture; shows outcome; inline edit + undo; accept ≠ destructive weight | Component interaction tests | IN-PROGRESS | logic+style: `approve.test.ts`, `styles.ts` (brand≠danger weight); rendered chip + haptic pending |
 | AC-DA5 | Approve chip (hero) | On approve: calm confirm + gentle haptic, visible undo, action in activity log | Interaction + integration tests | IN-PROGRESS | logic: `approve.test.ts` (undo+log); haptic/confirm UI pending |
-| AC-DA6 | Daily Brief | Shows logistics/conflicts/≤3 decisions/handled; comprehensible <60s, L/D, 200% | Render + comprehension tests | TODO | — |
+| AC-DA6 | Daily Brief | Shows logistics/conflicts/≤3 decisions/handled; comprehensible <60s, L/D, 200% | Render + comprehension tests | IN-PROGRESS | content model: `assembleBrief` (`iteration4.test.ts`); rendered surface + comprehension pending |
 | AC-DA7 | Autonomy-ladder | Current level + consequence unmistakable; change immediate & reversible | Component behavior tests | IN-PROGRESS | logic: `autonomy.test.ts` (consequenceCopy per level); control UI pending |
 | AC-DA8 | Motion | Durations/easing use tokens; respects reduced-motion; calm thresholds; interruptible | Motion-token + reduced-motion tests | TODO | — |
 | AC-DA9 | Capture affordances | Snap/voice/paste/forward reachable in thumb zone; ≤1 gesture; no required form | Flow test + zone assertion | TODO | — |
 | AC-DA10 | Accessibility | Every shipped screen passes screen-reader: roles/values/order; calm live regions | a11y-tree assertions | TODO | — |
-| AC-DA11 | Platform & surfaces | Each surface follows OS conventions, keeps brand; Family-Display hides sensitive data | Surface review checklist + tests | TODO | — |
+| AC-DA11 | Platform & surfaces | Each surface follows OS conventions, keeps brand; Family-Display hides sensitive data | Surface review checklist + tests | IN-PROGRESS | `visibleOnFamilyDisplay` hides financial/health/personal (`iteration4.test.ts`); per-surface review pending |
 | AC-DA12 | Age/role modes | Modes differ in density/type/tone/actions; semantics/components/a11y floor identical; none below AA | Per-mode a11y + snapshot tests | TODO | — |
 | AC-DA13 | Content & tone | Copy states what/why, single next step, no guilt/urgency; error/empty recoverable | Copy-lint + review checklist | TODO | — |
 
