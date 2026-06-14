@@ -2,6 +2,28 @@
 
 Running record of the autonomous delivery loop (see `../docs/DELIVERY_PROMPT.md`). Newest first.
 
+## Iteration 2 — 2026-06-14 · CI fix + Family Brain core
+**Fixed:** CI failed (`pnpm/action-setup` rejected pnpm version specified in both the action and
+`packageManager`). Removed the action's `version` input so it reads `packageManager`.
+
+**Built** `packages/core` (pure-TS, sandbox/mock — no live credentials, per gate decision):
+- **Provider-agnostic agent interface** (`agent.ts`): `EventExtractor` + confidence threshold;
+  concrete providers (Claude / mock) are injected → model stays swappable.
+- **Universal capture pipeline** (`capture.ts`): photo/text/email/voice → structured event with a
+  confidence gate that defers to human review instead of acting wrongly (AC-G9), plus provider
+  **entity resolution** that matches/flags/creates without silent duplicates (AC-P2).
+- **Conflict radar** (`conflict.ts`): detects same-driver/time clashes before the day and returns
+  plain-language explanations + concrete resolutions (AC-P3).
+
+**Verification:** `pnpm run verify` → lint OK · typecheck OK · **35/35 tests pass** (9 new).
+
+**Ledger movement:** IN-PROGRESS 10 → 15 (AC-G3, AC-G9, AC-P1, AC-P2, AC-P3 now have tested logic;
+screen/E2E + live-model halves pending). PASS 2, BLOCKED 5 unchanged.
+
+**Next:** Expo app shell themed from tokens; rendered Approve chip / Daily Brief / member-chip (with
+the mandatory non-colour initial) + snapshot/a11y tests (needs the RN test toolchain — adds AC-D1–D6,
+AC-DA2/DA4–DA6 screen-level evidence).
+
 ## Iteration 1 — 2026-06-14 · Foundations + verification harness
 **Approval gates cleared:** tech stack — Expo + TypeScript monorepo; AI/agent layer behind a
 provider-agnostic abstraction (Claude first).

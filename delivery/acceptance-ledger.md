@@ -9,7 +9,7 @@
 > AC). Never mark `PASS` by assertion. Status values: `TODO · IN-PROGRESS · PASS · FAIL · BLOCKED`.
 
 ## Summary
-`PASS 2 / TOTAL 63 · IN-PROGRESS 10 · BLOCKED 5 · FAIL 0 · TODO 46`
+`PASS 2 / TOTAL 63 · IN-PROGRESS 15 · BLOCKED 5 · FAIL 0 · TODO 41`
 
 _Last updated: 2026-06-14 · Stage: iteration 1 — monorepo scaffolded (Expo+TS, approved), design-token
 system + verification (contrast, colour-blind, token-lint) + interaction logic (Approve chip,
@@ -29,21 +29,21 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 |---|---|---|---|---|
 | AC-G1 | Validated on ≥5 realistic family datasets incl. a messy/edge case | Integration tests over dataset fixtures | TODO | — |
 | AC-G2 | Whole-family: non-primary members act without setup/account (push/SMS fallback) | E2E test of fallback channels | TODO | — |
-| AC-G3 | Capture cost ≤ 1 gesture (photo/forward/paste/voice), never a required form | UX flow test + lint on capture entry points | TODO | — |
+| AC-G3 | Capture cost ≤ 1 gesture (photo/forward/paste/voice), never a required form | UX flow test + lint on capture entry points | IN-PROGRESS | pipeline accepts photo/text/email/voice: `packages/core` capture (`test/capture.test.ts`); UI entry points pending |
 | AC-G4 | Proactive: surfaces the right thing before asked in ≥70% of relevant cases | Eval harness over scenario set | TODO | — |
 | AC-G5 | Every app action is logged, plain-language explained, undoable; no irreversible/financial w/o approval | Activity-log integration tests + guardrail tests | IN-PROGRESS | mechanism: `packages/ui` approve+activityLog (`test/approve.test.ts`); E2E pending |
 | AC-G6 | Calm: zero net default notifications; non-urgent → Daily Brief | Automated notification-budget check | TODO | — |
 | AC-G7 | Accessible (WCAG AA), one-handed, glanceable; primary surface interactive < 2s | a11y audit + perf budget | TODO | — |
 | AC-G8 | Privacy by default: minimal kids' data, none for training, role-scoped; privacy review | Privacy review + data-flow tests | TODO | — |
-| AC-G9 | Graceful failure: AI defers when unsure; confidence threshold + human-in-loop | Unit tests on confidence gating | TODO | — |
+| AC-G9 | Graceful failure: AI defers when unsure; confidence threshold + human-in-loop | Unit tests on confidence gating | IN-PROGRESS | `packages/core` capture confidence gate (`test/capture.test.ts`); live model pending |
 
 ## B. Product — Per-capability AC (SPEC §16.2)
 
 | ID | Capability | Criterion (short) | How verified | Status | Evidence |
 |---|---|---|---|---|---|
-| AC-P1 | Family Brain & Capture | Flyer photo → event (title/date/time/loc/child) ≥90% fields, <10s, ≤1 correction tap | Extraction eval on labeled fixtures | TODO | — |
-| AC-P2 | Family Brain & Capture | Duplicate provider merged or flagged; never a silent conflicting duplicate | Unit/integration entity-resolution tests | TODO | — |
-| AC-P3 | Calendar & Conflict radar | Same-driver/car clash detected & explained before the day; ≥1 one-tap resolution | Integration tests on conflict scenarios | TODO | — |
+| AC-P1 | Family Brain & Capture | Flyer photo → event (title/date/time/loc/child) ≥90% fields, <10s, ≤1 correction tap | Extraction eval on labeled fixtures | IN-PROGRESS | pipeline + extractor interface built (`packages/core` capture); ≥90% accuracy eval needs live model |
+| AC-P2 | Family Brain & Capture | Duplicate provider merged or flagged; never a silent conflicting duplicate | Unit/integration entity-resolution tests | IN-PROGRESS | `resolveProvider` tested (match/ambiguous/created): `packages/core/test/capture.test.ts` |
+| AC-P3 | Calendar & Conflict radar | Same-driver/car clash detected & explained before the day; ≥1 one-tap resolution | Integration tests on conflict scenarios | IN-PROGRESS | `detectConflicts` tested (before-day, resolutions): `packages/core/test/conflict.test.ts`; one-tap UI pending |
 | AC-P4 | Calendar & Conflict radar | Two-way Google/Apple/Outlook sync reconciles < 60s, no duplicates | Integration test vs sandbox calendars | TODO | — |
 | AC-P5 | Fair-Share | Load breakdown includes anticipatory/cognitive work; "feels accurate" ≥80% user tests | Proxy metric test **+ human-validation gate** | TODO | — |
 | AC-P6 | Fair-Share | New task routed to under-loaded member in-context; non-primary completion rises over 4-wk test | E2E routing test **+ longitudinal study gate** | TODO | — |
