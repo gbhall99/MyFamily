@@ -20,6 +20,14 @@ of the lean library CI); and `CaptureBar` — the signature one-gesture capture 
 (snap/voice/paste/forward, no form, thumb-zone targets). **Verify:** lint + typecheck + **71 tests**.
 **Ledger: PASS 16 → 18** (AC-G3, AC-DA9).
 
+## Iteration 9 — 2026-06-14 · Age/role modes + whole-family reach + docs + planner
+`packages/ui`: **age/role modes** (kid/teen/adult/grandparent) that differ in density/type/tone/
+actions while sharing one frozen `A11Y_FLOOR` — no mode below AA (AC-DA12 → PASS).
+`packages/core`: **whole-family reach** with SMS/WhatsApp/email fallback so non-app members are still
+reachable (AC-G2); **document retrieval** + permission-slip task tracking (AC-P12); **agentic planner**
+turning an NL goal into an approvable, editable 5-section plan (AC-P13). **Verify:** lint + typecheck
++ **79 tests**. **Ledger: PASS 19, IN-PROGRESS 23, TODO 16.**
+
 ## Iteration 6 — 2026-06-14 · Reachability + blocking a11y gate
 `packages/ui`: screen-spec gains a `zone` so `auditScreen` enforces the primary action is in the
 one-handed thumb zone (AC-D5 → PASS); the audit is wired as a **release-blocking** CI gate (AC-DG2 →

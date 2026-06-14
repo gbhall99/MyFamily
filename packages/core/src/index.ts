@@ -8,3 +8,6 @@ export * from "./brief.js";
 export * from "./fairshare.js";
 export * from "./access.js";
 export * from "./notify.js";
+export * from "./channels.js";
+export * from "./documents.js";
+export * from "./planner.js";

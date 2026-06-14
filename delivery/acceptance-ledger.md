@@ -9,7 +9,7 @@
 > AC). Never mark `PASS` by assertion. Status values: `TODO · IN-PROGRESS · PASS · FAIL · BLOCKED`.
 
 ## Summary
-`PASS 18 / TOTAL 63 · IN-PROGRESS 20 · BLOCKED 5 · FAIL 0 · TODO 20`
+`PASS 19 / TOTAL 63 · IN-PROGRESS 23 · BLOCKED 5 · FAIL 0 · TODO 16`
 
 > **Render layer landed.** A react-native-web + Testing-Library + jsdom harness (under vitest) now
 > renders the real RN components and asserts their accessibility tree, so the design AC have moved
@@ -37,7 +37,7 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | ID | Criterion (short) | How verified | Status | Evidence |
 |---|---|---|---|---|
 | AC-G1 | Validated on ≥5 realistic family datasets incl. a messy/edge case | Integration tests over dataset fixtures | TODO | — |
-| AC-G2 | Whole-family: non-primary members act without setup/account (push/SMS fallback) | E2E test of fallback channels | TODO | — |
+| AC-G2 | Whole-family: non-primary members act without setup/account (push/SMS fallback) | E2E test of fallback channels | IN-PROGRESS | `reachChannel`/`everyoneReachable` fallback logic (`iteration9.test.ts`); live SMS/push delivery needs creds |
 | AC-G3 | Capture cost ≤ 1 gesture (photo/forward/paste/voice), never a required form | UX flow test + lint on capture entry points | PASS | `core` capture pipeline (4 input kinds) + rendered `CaptureBar` one-tap actions, no textbox/form (`CaptureBar.test.tsx`) |
 | AC-G4 | Proactive: surfaces the right thing before asked in ≥70% of relevant cases | Eval harness over scenario set | TODO | — |
 | AC-G5 | Every app action is logged, plain-language explained, undoable; no irreversible/financial w/o approval | Activity-log integration tests + guardrail tests | IN-PROGRESS | mechanism: `packages/ui` approve+activityLog (`test/approve.test.ts`); E2E pending |
@@ -61,8 +61,8 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | AC-P9 | Comms & drafts | Thread summary contains every action item, zero fabricated commitments | Summarization eval on labeled threads | IN-PROGRESS | `summariseActionItems` tested (verbatim, no fabrication): `packages/core/test/comms.test.ts` |
 | AC-P10 | Comms & drafts | Drafted message always shown for approval unless category set full-auto | Behavior tests across autonomy levels | IN-PROGRESS | `draftGate` tested across levels: `packages/core/test/comms.test.ts` |
 | AC-P11 | Inbox / doc triage | ≥90% true action items → dated assigned tasks; ≤1/20 false escalation | Triage eval on labeled inbox corpus | IN-PROGRESS | metric harness ≥0.9 recall / ≤0.05 false-escalation on fixture: `triage.test.ts`; real corpus + model pending |
-| AC-P12 | Inbox / doc triage | Permission-slip tracked to completion; doc retrievable < 5s at point of need | E2E + search latency test | TODO | — |
-| AC-P13 | Agentic layer | NL goal → approvable, editable plan (date/logistics/invites/tasks/provisioning) | E2E co-pilot plan test | TODO | — |
+| AC-P12 | Inbox / doc triage | Permission-slip tracked to completion; doc retrievable < 5s at point of need | E2E + search latency test | IN-PROGRESS | `DocStore.search` + `completeTask` tested (`iteration9.test.ts`); live doc-connect pending |
+| AC-P13 | Agentic layer | NL goal → approvable, editable plan (date/logistics/invites/tasks/provisioning) | E2E co-pilot plan test | IN-PROGRESS | `planGoal` returns the 5 approvable/editable sections (`iteration9.test.ts`); model-backed parsing pending |
 | AC-P14 | Agentic layer | Autonomy level obeyed exactly (Notify never acts; Full-auto never interrupts); visible & revocable | Behavior matrix tests | IN-PROGRESS | logic: `packages/ui/test/autonomy.test.ts`; control UI pending |
 | AC-P15 | Agentic layer | Every agent action in the activity log within seconds, with reason + undo | Activity-log integration tests | IN-PROGRESS | logic: `packages/ui/test/approve.test.ts` (logs reason+undo); live agent pending |
 | AC-P16 | Daily Brief | Brief shows logistics/conflicts/≤3 one-tap decisions/handled; readable <60s; opened ≥60% active days | Render test + comprehension proxy **+ usage-metric gate** | IN-PROGRESS | `assembleBrief` caps to ≤3, keeps 4 sections (`iteration4.test.ts`); render + usage metric pending |
@@ -113,7 +113,7 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | AC-DA9 | Capture affordances | Snap/voice/paste/forward reachable in thumb zone; ≤1 gesture; no required form | Flow test + zone assertion | PASS | rendered `CaptureBar`: 4 one-tap actions, full-size targets, no form (`CaptureBar.test.tsx`) |
 | AC-DA10 | Accessibility | Every shipped screen passes screen-reader: roles/values/order; calm live regions | a11y-tree assertions | IN-PROGRESS | rendered components expose roles/labels + a polite live region on approve (`ApproveChip.test.tsx`); device SR sign-off pending |
 | AC-DA11 | Platform & surfaces | Each surface follows OS conventions, keeps brand; Family-Display hides sensitive data | Surface review checklist + tests | IN-PROGRESS | `visibleOnFamilyDisplay` hides financial/health/personal (`iteration4.test.ts`); per-surface review pending |
-| AC-DA12 | Age/role modes | Modes differ in density/type/tone/actions; semantics/components/a11y floor identical; none below AA | Per-mode a11y + snapshot tests | TODO | — |
+| AC-DA12 | Age/role modes | Modes differ in density/type/tone/actions; semantics/components/a11y floor identical; none below AA | Per-mode a11y + snapshot tests | PASS | `MODES` share one frozen `A11Y_FLOOR`; differ in density/tone/actions; base text ≥ AA min (`modes.test.ts`) |
 | AC-DA13 | Content & tone | Copy states what/why, single next step, no guilt/urgency; error/empty recoverable | Copy-lint + review checklist | IN-PROGRESS | `lintCopy` + `hasSingleClearAction` tested (`screen.test.ts`); error/empty copy review pending |
 
 ## F. Design — Review gate (DESIGN_SPEC §13.3, process)
