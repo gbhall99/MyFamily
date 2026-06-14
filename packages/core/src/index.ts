@@ -16,3 +16,4 @@ export * from "./sync.js";
 export * from "./grocery.js";
 export * from "./extractor.js";
 export * from "./proactivity.js";
+export * from "./providers/groq.js";

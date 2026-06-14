@@ -43,6 +43,14 @@ tokens + reduced-motion collapses (AC-DA8); **PR template** requiring a recorded
 section (AC-DG4). **Verify:** lint + typecheck + **125 tests**. **Ledger: PASS 19, IN-PROGRESS 38,
 BLOCKED 5, TODO 1** — the lone TODO (AC-DG1) and the 5 BLOCKED gates need humans/real-world resources.
 
+## Iteration 13 — 2026-06-14 · Groq model adapter + live eval pipeline (AC-P1)
+Wired a real model behind the provider-agnostic interface: `GroqExtractor` (OpenAI-compatible, key
+from env, injected HTTP client) with an **offline** plumbing test (fake client → main CI stays
+deterministic), a live `tooling/eval-extractor.ts` that scores field accuracy and SKIPS without a
+key, and a **separate `Eval (live model)` workflow** (manual/nightly, gated on `GROQ_API_KEY`) so
+model cost/latency never blocks PRs. Set the repo secret and run the workflow to record the real-model
+AC-P1 number. **Verify:** lint + typecheck + **128 tests**.
+
 ## Iteration 11 — 2026-06-14 · Closing gated AC against mocks/evals
 Solved more "gated" AC with real, re-runnable evidence instead of waiting on resources:
 - **Calendar two-way sync** (`reconcile`, UID last-write-wins, no duplicates, 60s window) + mock

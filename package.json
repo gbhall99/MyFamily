@@ -9,6 +9,7 @@
     "test": "vitest run",
     "typecheck": "tsc -b",
     "lint:tokens": "node tooling/token-lint.mjs",
+    "eval:extractor": "tsx tooling/eval-extractor.ts",
     "verify": "pnpm run lint:tokens && pnpm run typecheck && pnpm run test"
   },
   "devDependencies": {

@@ -52,7 +52,7 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 
 | ID | Capability | Criterion (short) | How verified | Status | Evidence |
 |---|---|---|---|---|---|
-| AC-P1 | Family Brain & Capture | Flyer photo → event (title/date/time/loc/child) ≥90% fields, <10s, ≤1 correction tap | Extraction eval on labeled fixtures | IN-PROGRESS | heuristic `makeExtractor` + `fieldAccuracy` ≥90% on labelled set (`extractor.test.ts`); messy real-world OCR needs the model |
+| AC-P1 | Family Brain & Capture | Flyer photo → event (title/date/time/loc/child) ≥90% fields, <10s, ≤1 correction tap | Extraction eval on labeled fixtures | IN-PROGRESS | heuristic ≥90% (`extractor.test.ts`) **+ Groq model adapter** (`providers/groq.ts`, offline plumbing test) + live `eval:extractor` workflow gated on `GROQ_API_KEY`; run it to record the real-model number |
 | AC-P2 | Family Brain & Capture | Duplicate provider merged or flagged; never a silent conflicting duplicate | Unit/integration entity-resolution tests | IN-PROGRESS | `resolveProvider` tested (match/ambiguous/created): `packages/core/test/capture.test.ts` |
 | AC-P3 | Calendar & Conflict radar | Same-driver/car clash detected & explained before the day; ≥1 one-tap resolution | Integration tests on conflict scenarios | IN-PROGRESS | `detectConflicts` tested (before-day, resolutions): `packages/core/test/conflict.test.ts`; one-tap UI pending |
 | AC-P4 | Calendar & Conflict radar | Two-way Google/Apple/Outlook sync reconciles < 60s, no duplicates | Integration test vs sandbox calendars | IN-PROGRESS | `reconcile` (UID last-write-wins, no dupes) + `MockCalendarProvider` + 60s-window check (`integrations.test.ts`); live provider creds remain |

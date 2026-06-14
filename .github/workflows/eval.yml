@@ -1,0 +1,27 @@
+name: Eval (live model)
+
+# Runs the live extraction-accuracy eval against Groq. Separate from the main
+# `verify` gate so model latency/cost/non-determinism never blocks PRs. Runs only
+# on manual dispatch or a nightly schedule, and only if the GROQ_API_KEY secret is set.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 7 * * *"
+
+jobs:
+  eval-extractor:
+    name: Extraction accuracy (AC-P1)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Run live extraction eval
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_MODEL: ${{ vars.GROQ_MODEL }}
+        run: pnpm eval:extractor
