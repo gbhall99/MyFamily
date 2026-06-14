@@ -2,6 +2,17 @@
 
 Running record of the autonomous delivery loop (see `../docs/DELIVERY_PROMPT.md`). Newest first.
 
+## Iteration 7 — 2026-06-14 · RN render + a11y layer (new branch `claude/myfamily-app-build`, PR #2)
+Stood up a **react-native-web + Testing-Library + jsdom** harness under the existing vitest
+(`react-native` aliased to `react-native-web`) plus a minimal `react-native` type shim — one test
+runner, no jest. Built rendered, tokens-only components with render + accessibility tests:
+**ApproveChip** (one-tap accept, live-region "Handled.", visible undo, dark parity), **MemberChip**
+(initial as the non-colour cue + accessible name), **DailyBriefCard** (4 sections, accessible
+headings, tappable decisions, L/D), **AutonomyLadder** (radios with consequence copy + checked
+state), and a **reduced-motion** helper. **Verify:** lint + typecheck + **68 tests**.
+**Ledger: PASS 10 → 16** (AC-D4, AC-D8, AC-DA4, AC-DA5, AC-DA6, AC-DA7); AC-D10/AC-DA10 now have
+automated a11y-tree evidence (device SR sign-off pending).
+
 ## Iteration 6 — 2026-06-14 · Reachability + blocking a11y gate
 `packages/ui`: screen-spec gains a `zone` so `auditScreen` enforces the primary action is in the
 one-handed thumb zone (AC-D5 → PASS); the audit is wired as a **release-blocking** CI gate (AC-DG2 →

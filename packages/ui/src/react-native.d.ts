@@ -26,6 +26,12 @@ declare module "react-native" {
     accessibilityLiveRegion?: "none" | "polite" | "assertive";
     testID?: string;
     nativeID?: string;
+    // Modern ARIA props (supported by RN 0.71+ and react-native-web).
+    role?: string;
+    "aria-label"?: string;
+    "aria-checked"?: boolean;
+    "aria-selected"?: boolean;
+    "aria-live"?: "off" | "polite" | "assertive";
   }
 
   export interface ViewProps extends AccessibilityProps {
