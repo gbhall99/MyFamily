@@ -13,6 +13,13 @@ state), and a **reduced-motion** helper. **Verify:** lint + typecheck + **68 tes
 **Ledger: PASS 10 → 16** (AC-D4, AC-D8, AC-DA4, AC-DA5, AC-DA6, AC-DA7); AC-D10/AC-DA10 now have
 automated a11y-tree evidence (device SR sign-off pending).
 
+## Iteration 8 — 2026-06-14 · Today screen, Expo shell, capture bar
+Composed the full stack: `TodayView` (member row + Daily Brief) with render/a11y tests; a runnable
+**Expo app** (`apps/mobile`) wiring `@myfamily/core` view-models into `@myfamily/ui` screens (kept out
+of the lean library CI); and `CaptureBar` — the signature one-gesture capture affordance
+(snap/voice/paste/forward, no form, thumb-zone targets). **Verify:** lint + typecheck + **71 tests**.
+**Ledger: PASS 16 → 18** (AC-G3, AC-DA9).
+
 ## Iteration 6 — 2026-06-14 · Reachability + blocking a11y gate
 `packages/ui`: screen-spec gains a `zone` so `auditScreen` enforces the primary action is in the
 one-handed thumb zone (AC-D5 → PASS); the audit is wired as a **release-blocking** CI gate (AC-DG2 →

@@ -9,7 +9,7 @@
 > AC). Never mark `PASS` by assertion. Status values: `TODO · IN-PROGRESS · PASS · FAIL · BLOCKED`.
 
 ## Summary
-`PASS 16 / TOTAL 63 · IN-PROGRESS 22 · BLOCKED 5 · FAIL 0 · TODO 20`
+`PASS 18 / TOTAL 63 · IN-PROGRESS 20 · BLOCKED 5 · FAIL 0 · TODO 20`
 
 > **Render layer landed.** A react-native-web + Testing-Library + jsdom harness (under vitest) now
 > renders the real RN components and asserts their accessibility tree, so the design AC have moved
@@ -38,7 +38,7 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 |---|---|---|---|---|
 | AC-G1 | Validated on ≥5 realistic family datasets incl. a messy/edge case | Integration tests over dataset fixtures | TODO | — |
 | AC-G2 | Whole-family: non-primary members act without setup/account (push/SMS fallback) | E2E test of fallback channels | TODO | — |
-| AC-G3 | Capture cost ≤ 1 gesture (photo/forward/paste/voice), never a required form | UX flow test + lint on capture entry points | IN-PROGRESS | pipeline accepts photo/text/email/voice: `packages/core` capture (`test/capture.test.ts`); UI entry points pending |
+| AC-G3 | Capture cost ≤ 1 gesture (photo/forward/paste/voice), never a required form | UX flow test + lint on capture entry points | PASS | `core` capture pipeline (4 input kinds) + rendered `CaptureBar` one-tap actions, no textbox/form (`CaptureBar.test.tsx`) |
 | AC-G4 | Proactive: surfaces the right thing before asked in ≥70% of relevant cases | Eval harness over scenario set | TODO | — |
 | AC-G5 | Every app action is logged, plain-language explained, undoable; no irreversible/financial w/o approval | Activity-log integration tests + guardrail tests | IN-PROGRESS | mechanism: `packages/ui` approve+activityLog (`test/approve.test.ts`); E2E pending |
 | AC-G6 | Calm: zero net default notifications; non-urgent → Daily Brief | Automated notification-budget check | IN-PROGRESS | `notify` routing + `netDefaultPushes`=0 for routine: `test/iteration4.test.ts` |
@@ -110,7 +110,7 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | AC-DA6 | Daily Brief | Shows logistics/conflicts/≤3 decisions/handled; comprehensible <60s, L/D, 200% | Render + comprehension tests | PASS | rendered `DailyBriefCard` 4 sections + tappable decisions, L/D (`components.test.tsx`); <60s comprehension is the human half |
 | AC-DA7 | Autonomy-ladder | Current level + consequence unmistakable; change immediate & reversible | Component behavior tests | PASS | rendered `AutonomyLadder` radios w/ consequence copy + checked state + onChange (`components.test.tsx`) |
 | AC-DA8 | Motion | Durations/easing use tokens; respects reduced-motion; calm thresholds; interruptible | Motion-token + reduced-motion tests | TODO | — |
-| AC-DA9 | Capture affordances | Snap/voice/paste/forward reachable in thumb zone; ≤1 gesture; no required form | Flow test + zone assertion | TODO | — |
+| AC-DA9 | Capture affordances | Snap/voice/paste/forward reachable in thumb zone; ≤1 gesture; no required form | Flow test + zone assertion | PASS | rendered `CaptureBar`: 4 one-tap actions, full-size targets, no form (`CaptureBar.test.tsx`) |
 | AC-DA10 | Accessibility | Every shipped screen passes screen-reader: roles/values/order; calm live regions | a11y-tree assertions | IN-PROGRESS | rendered components expose roles/labels + a polite live region on approve (`ApproveChip.test.tsx`); device SR sign-off pending |
 | AC-DA11 | Platform & surfaces | Each surface follows OS conventions, keeps brand; Family-Display hides sensitive data | Surface review checklist + tests | IN-PROGRESS | `visibleOnFamilyDisplay` hides financial/health/personal (`iteration4.test.ts`); per-surface review pending |
 | AC-DA12 | Age/role modes | Modes differ in density/type/tone/actions; semantics/components/a11y floor identical; none below AA | Per-mode a11y + snapshot tests | TODO | — |
