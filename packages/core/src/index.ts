@@ -25,3 +25,5 @@ export * from "./offline.js";
 export * from "./idempotency.js";
 export * from "./kids.js";
 export * from "./care.js";
+export * from "./health.js";
+export * from "./travel.js";
