@@ -46,8 +46,9 @@ export function CaptureSheet({ open, onClose, onFiled }: { open: boolean; onClos
   const confident = !!ev && ev.confidence >= 0.7 && !!ev.title && !!ev.date;
 
   return (
-    <div onClick={close} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,.4)", zIndex: 50, display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
+    <div className="overlay" onClick={close} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,.4)", zIndex: 50, display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
       <div
+        className="sheet"
         onClick={(e) => e.stopPropagation()}
         style={{ width: "100%", maxWidth: 460, background: t.surface, borderTopLeftRadius: radius.lg, borderTopRightRadius: radius.lg, padding: space[4], paddingBottom: space[6] }}
       >

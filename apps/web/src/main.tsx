@@ -17,6 +17,7 @@ function Toast({ message }: { message: string }) {
   return (
     <div
       role="status"
+      className="toast"
       style={{
         position: "fixed",
         left: "50%",

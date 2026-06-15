@@ -17,7 +17,7 @@ import {
 } from "@myfamily/ui";
 import { assembleBrief, detectConflicts, planGoal, type FamilyEvent, type Plan } from "@myfamily/core";
 import { space, radius, type as typeRoles } from "@myfamily/tokens";
-import { AppHeader, Card, Kicker, Screen, useTheme } from "./chrome.js";
+import { AppHeader, Card, Kicker, Screen, shadow, useTheme } from "./chrome.js";
 
 export const MEMBERS: Member[] = [
   { name: "Maya", accentIndex: 0 },
@@ -112,9 +112,9 @@ export function TodayScreen({
           <Kicker>Needs a tap</Kicker>
           <div style={{ display: "flex", flexDirection: "column", gap: space[3], marginTop: space[2] }}>
             {suggestions.map((s) => (
-              <Card key={s.id} style={{ padding: space[3] }}>
+              <div key={s.id} style={{ borderRadius: radius.lg, boxShadow: shadow(theme) }}>
                 <ApproveChip suggestion={s} log={log} theme={theme} onDecision={onDecision} />
-              </Card>
+              </div>
             ))}
           </div>
         </section>
