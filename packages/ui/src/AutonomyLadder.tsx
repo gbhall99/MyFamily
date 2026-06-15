@@ -17,13 +17,13 @@ const LABELS: Record<AutonomyLevel, string> = {
 export function AutonomyLadder({ value, theme = "light", onChange }: { value: AutonomyLevel; theme?: ThemeName; onChange?: (l: AutonomyLevel) => void }) {
   const t = themes[theme];
   return (
-    <View accessibilityRole="radiogroup" accessibilityLabel="Autonomy level">
+    <View role="radiogroup" accessibilityLabel="Autonomy level">
       {AUTONOMY_LEVELS.map((level) => {
         const selected = level === value;
         return (
           <Pressable
             key={level}
-            accessibilityRole="radio"
+            role="radio"
             aria-checked={selected}
             accessibilityLabel={`${LABELS[level]}. ${consequenceCopy(level)}`}
             onPress={() => onChange?.(level)}

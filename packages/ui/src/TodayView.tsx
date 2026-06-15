@@ -28,11 +28,11 @@ export function TodayView({
 }) {
   const t = themes[theme];
   return (
-    <View accessibilityRole="none" style={{ backgroundColor: t.bg, padding: space[4], gap: space[4] }}>
-      <Text accessibilityRole="header" style={{ color: t.text, fontSize: typeRoles.titleL.size, fontWeight: "700" }}>
+    <View role="none" style={{ backgroundColor: t.bg, padding: space[4], gap: space[4] }}>
+      <Text role="heading" style={{ color: t.text, fontSize: typeRoles.titleL.size, fontWeight: "700" }}>
         {greeting}
       </Text>
-      <View accessibilityRole="list" accessibilityLabel="Family" style={{ flexDirection: "row", gap: space[2] }}>
+      <View role="list" accessibilityLabel="Family" style={{ flexDirection: "row", gap: space[2] }}>
         {members.map((m) => (
           <MemberChip key={m.name} name={m.name} accentIndex={m.accentIndex} theme={theme} />
         ))}

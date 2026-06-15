@@ -33,32 +33,32 @@ export function ApproveChip({ suggestion, log, theme = "light", onDecision }: Ap
   const container = { backgroundColor: t.surface, borderRadius: radius.md, padding: space[4] };
   const primary = { backgroundColor: t.brand, minHeight: minTouchTarget.ios, borderRadius: radius.pill, paddingHorizontal: space[4], justifyContent: "center" as const };
   const secondary = { backgroundColor: t.surface, borderColor: t.borderStrong, borderWidth: 1, minHeight: minTouchTarget.ios, borderRadius: radius.pill, paddingHorizontal: space[4], justifyContent: "center" as const };
-  const onBrand = { color: t.textOnBrand, fontSize: typeRoles.label.size, fontWeight: String(typeRoles.label.weight) };
+  const onBrand = { color: t.textOnBrand, fontSize: typeRoles.label.size, fontWeight: typeRoles.label.weight };
   const onSurface = { color: t.brand, fontSize: typeRoles.label.size };
 
   return (
-    <View accessibilityRole="group" style={container}>
+    <View role="group" style={container}>
       <Text style={{ color: t.text, fontSize: typeRoles.bodyL.size }}>{suggestion.summary}</Text>
       <Text style={{ color: t.textMuted, fontSize: typeRoles.caption.size }}>{suggestion.reason}</Text>
 
       {!done ? (
-        <View accessibilityRole="toolbar">
-          <Pressable accessibilityRole="button" accessibilityLabel={`Approve: ${suggestion.summary}`} onPress={accept} style={primary}>
+        <View role="toolbar">
+          <Pressable role="button" accessibilityLabel={`Approve: ${suggestion.summary}`} onPress={accept} style={primary}>
             <Text style={onBrand}>Approve</Text>
           </Pressable>
-          <Pressable accessibilityRole="button" accessibilityLabel="Edit" onPress={() => choose("edit")} style={secondary}>
+          <Pressable role="button" accessibilityLabel="Edit" onPress={() => choose("edit")} style={secondary}>
             <Text style={onSurface}>Edit</Text>
           </Pressable>
-          <Pressable accessibilityRole="button" accessibilityLabel="Decline" onPress={() => choose("decline")} style={secondary}>
+          <Pressable role="button" accessibilityLabel="Decline" onPress={() => choose("decline")} style={secondary}>
             <Text style={onSurface}>Decline</Text>
           </Pressable>
         </View>
       ) : (
         <View>
-          <Text accessibilityLiveRegion="polite" style={{ color: t.statusSuccess, fontSize: typeRoles.bodyM.size }}>
+          <Text aria-live="polite" style={{ color: t.statusSuccess, fontSize: typeRoles.bodyM.size }}>
             Handled.
           </Text>
-          <Pressable accessibilityRole="button" accessibilityLabel="Undo" onPress={() => undo?.()} style={secondary}>
+          <Pressable role="button" accessibilityLabel="Undo" onPress={() => undo?.()} style={secondary}>
             <Text style={onSurface}>Undo</Text>
           </Pressable>
         </View>
