@@ -19,3 +19,5 @@ export * from "./proactivity.js";
 export * from "./providers/groq.js";
 export * from "./taskgen.js";
 export * from "./money.js";
+export * from "./brain.js";
+export * from "./audit.js";
