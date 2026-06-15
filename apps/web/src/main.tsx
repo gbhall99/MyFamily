@@ -10,6 +10,7 @@ import { type Plan } from "@myfamily/core";
 import { radius, type ThemeName } from "@myfamily/tokens";
 import { ThemeProvider, TabBar, useTheme, type TabId } from "./chrome.js";
 import { TodayScreen, PlanScreen, ActivityScreen, SettingsScreen } from "./screens.js";
+import { CaptureSheet } from "./CaptureSheet.js";
 
 function Toast({ message }: { message: string }) {
   const { t } = useTheme();
@@ -44,6 +45,8 @@ export function App() {
   const [handled, setHandled] = useState<string[]>(["Booked the haircut", "Filed the school newsletter"]);
   const [levels, setLevels] = useState<Record<string, AutonomyLevel>>({ calendar: "auto_undo", messages: "suggest", shopping: "notify" });
   const [toast, setToast] = useState<string | null>(null);
+  const [captureOpen, setCaptureOpen] = useState(false);
+  const [captured, setCaptured] = useState<string[]>([]);
 
   const logRef = useRef<ActivityEntry[]>([]);
   const [log, setLog] = useState<ActivityEntry[]>([]);
@@ -54,9 +57,13 @@ export function App() {
     setTimeout(() => setToast(null), 2600);
   };
 
-  const onCapture = (k: CaptureKind) => {
-    const label = { photo: "Camera", voice: "Voice", paste: "Paste", forward: "Forward" }[k];
-    showToast(`${label} capture — point it at a flyer and I'll file the event.`);
+  const onCapture = (_k: CaptureKind) => setCaptureOpen(true);
+
+  const onFiled = (line: string, source: string) => {
+    setCaptured((c) => [line, ...c]);
+    logEntry(logRef.current, { summary: `Filed: ${line}`, reason: `captured ${source === "model" ? "with the model" : "on-device"}`, category: "capture" });
+    refreshLog();
+    showToast(`Filed “${line}”.`);
   };
 
   const onApprovePlan = (plan: Plan) => {
@@ -69,12 +76,13 @@ export function App() {
   return (
     <ThemeProvider theme={theme} toggle={() => setTheme((p) => (p === "light" ? "dark" : "light"))}>
       {tab === "today" && (
-        <TodayScreen log={logRef.current} handled={handled} setHandled={setHandled} onDecision={refreshLog} onCapture={onCapture} />
+        <TodayScreen log={logRef.current} handled={handled} setHandled={setHandled} captured={captured} onDecision={refreshLog} onCapture={onCapture} />
       )}
       {tab === "plan" && <PlanScreen onApprovePlan={onApprovePlan} />}
       {tab === "activity" && <ActivityScreen log={log} />}
       {tab === "settings" && <SettingsScreen levels={levels} setLevel={(k, l) => setLevels((p) => ({ ...p, [k]: l }))} />}
 
+      <CaptureSheet open={captureOpen} onClose={() => setCaptureOpen(false)} onFiled={onFiled} />
       {toast && <Toast message={toast} />}
       <TabBar active={tab} onChange={setTab} />
     </ThemeProvider>

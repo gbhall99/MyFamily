@@ -8,7 +8,7 @@ export default defineConfig({
     alias: { "react-native": "react-native-web" },
   },
   test: {
-    include: ["packages/*/test/**/*.test.ts", "packages/*/test/**/*.test.tsx"],
+    include: ["packages/*/test/**/*.test.ts", "packages/*/test/**/*.test.tsx", "apps/web/test/**/*.test.tsx"],
     environment: "node", // render tests opt into jsdom via a per-file directive
     setupFiles: ["./vitest.setup.ts"],
   },
