@@ -211,6 +211,19 @@ The #1 reason family apps die is that only one person uses them. MyFamily design
 
 ---
 
+### 8.1 Onboarding flow (capture-first, value before setup)
+1. **Land on value, not a form.** First run opens straight to capture: "Snap a flyer, forward an email, or just tell me what's going on." The first captured item is extracted and filed live — the "aha."
+2. **Build the household by invitation, not data entry.** The primary user adds members by name + phone/email; the app pulls relationships and providers from captured items over time rather than asking for them up front.
+3. **Connect a source (optional, skippable).** Offer one calendar/inbox connection to seed the Brain; never block first value on it.
+4. **Set a starting autonomy level.** Default to **Suggest** for everything; explain the ladder in one sentence; let the family raise it later per category.
+5. **Non-primary members never onboard.** They first appear in the system as the recipient of an assigned item via their own channel (see AC for §8). Opening the app is optional, not required.
+
+### 8.2 Household & roles model
+- **One household** contains **members**; members have a **role** that scopes what they see and can do: `owner/primary · co-parent · adult · caregiver · teen · child · grandparent/guest`.
+- **Roles, not accounts, are the unit of access.** A member can participate (receive, act) by channel without an account; an account adds richer surfaces but is never required to be reached.
+- **Multi-household & separated families:** a member (e.g., a child) can belong to two linked households with a shared, neutral subset (schedule, custody handoffs, expense ledger) and private remainders per household.
+- **Scoped visibility** is enforced per role for each sensitivity class (general · personal · health · financial · location); the shared Family Display further hides sensitive classes by default.
+
 ## 9. UX & surfaces (mobile-first, cross-platform)
 
 - **Primary:** iOS + Android, native-feeling, fast capture (camera, share-sheet, voice).
@@ -219,6 +232,27 @@ The #1 reason family apps die is that only one person uses them. MyFamily design
 - **Companion surfaces:** home-screen/lock-screen **widgets**, **watch** (next thing + quick approve), **voice** (co-pilot), and a **Family Display** mode (kitchen tablet / shared screen).
 - **Web companion** for heavier planning sessions.
 - **Accessibility & calm:** large-touch, glanceable, low-notification — proactivity must reduce pings, not add them. Strict notification budgeting; the Brief consolidates.
+
+### 9.1 Screen & surface inventory (product-level)
+The shipped app is the following surfaces, all powered by the same Brain:
+- **Today** (home) — the Daily Brief: logistics, caught conflicts, ≤3 one-tap decisions, "already handled," capture entry point.
+- **Co-pilot** — conversational goal → approvable plan; per-member context.
+- **Activity log** — "everything I did for you," with reason + undo per action.
+- **Calendar** — shared, color-coded, two-way synced; conflict radar surfaced inline.
+- **Tasks / Load** — assignable tasks + the Fair-Share balance view.
+- **Meals** — plan → cart → order; pantry/staples.
+- **Money** — shared expenses, bills, co-parent ledger.
+- **People / Care** — member profiles, providers, health, eldercare log.
+- **Capture sheet** — snap/voice/paste/forward → extracted item for one-tap filing.
+- **Settings** — per-category autonomy ladder, privacy/roles, integrations.
+- **Companion surfaces** — widgets, watch, voice, Family Display, web companion.
+- Every screen ships its full state set (default · loading · empty · error) per DESIGN_SPEC §13.1.
+
+### 9.2 Notifications & the calm budget
+- **Default to zero net new notifications.** Non-urgent items roll into the Daily Brief; a feature may not raise the per-family notification count.
+- **Only genuinely urgent, time-critical items push** (a conflict happening today, a same-day cancellation). Everything else defers.
+- **Per-member, per-category controls** and quiet hours; the Brief is the consolidation point.
+- **Channel-aware:** non-app members are reached via push or SMS/iMessage/WhatsApp; urgency rules apply across channels.
 
 > **Design standard:** the binding UI/UX & graphic-design specification — visual identity, design
 > system, interaction/motion, accessibility floor, age-appropriate UI, and design acceptance
@@ -293,9 +327,13 @@ Freemium → subscription, matching proven family-app economics (market median ~
 
 ## 16. Acceptance criteria
 
-These define "built to standard." Two kinds: **global quality bars** every feature must
-clear (the universal Definition of Done), and **per-capability criteria** written as
-verifiable user outcomes. Each is testable and pass/fail.
+These define "built to standard," and they are **complete** — covering every feature pillar
+(§6.1–6.11), every agentic tier, onboarding, and the platform as a whole. Four kinds:
+**§16.1 global quality bars** every feature must clear (the universal Definition of Done),
+**§16.2 per-capability criteria** written as verifiable user outcomes, **§16.3 phase launch
+gates** (human-validated outcomes), and **§16.4 cross-cutting/platform criteria**. Each is
+testable and pass/fail, and tracked one-to-one in
+[`delivery/acceptance-ledger.md`](../delivery/acceptance-ledger.md).
 
 ### 16.1 Global Definition of Done (applies to every feature)
 A feature is not "done" until **all** of the following hold:
@@ -348,6 +386,48 @@ A feature is not "done" until **all** of the following hold:
 - Given a teen with privacy settings, then those boundaries are honored across location, chat, and visibility, and cannot be overridden silently.
 - Given any cross-member access (grandparent, co-parent, sibling caregiver), then they see only what their role scopes allow, verified by an access-control test suite.
 
+**Brain self-maintenance (§6.1③)**
+- Given a known fact that changes in the world (swim moves from Tuesdays to Thursdays), when the app sees the new signal, then it updates the Brain, records the change with its source, and flags only genuinely ambiguous changes for confirmation — it never silently overwrites a fact without a trace.
+
+**Calendar auto-resolve & coordinate (§6.2③)**
+- Given a detected conflict and a chosen resolution (carpool ask / reschedule message / backup sitter), when the user approves it, then the app executes that action (sends the draft, books the sitter at the set autonomy level), updates the calendar, and logs it with an undo — no irreversible coordination happens without approval.
+
+**Auto-task generation (§6.3②)**
+- Given an obligation implied by the Brain (an RSVP date, a gift need, a passport expiring before a booked trip), when detected, then the app creates a dated, assigned task with enough lead time to act, attaches what's needed to do it, and never duplicates a task the family already has.
+
+**Meals — staples reordering (§6.4③)**
+- Given tracked household staples and their depletion rate, when an item is about to run out, then the app reorders it at the category's autonomy level (silently only on full-auto), within the family budget cap, and every reorder appears in the activity log.
+
+**Co-parent neutral comms (§6.5③)**
+- Given a tense or charged message, when the user asks the app to send it, then the app offers a neutral, factual rephrase that preserves the meaning, records it in the shared co-parent log, and never sends without approval unless that category is set to full-auto.
+
+**Autonomous filing & follow-through (§6.6③)**
+- Given an incoming document (medical record, permission slip, warranty), when received, then the app files it to the correct member/category, tracks any open obligation until it's complete, and retrieves the right document on request in < 5s at the moment of need.
+
+**Kids, school & activities (§6.7)**
+- Given each child's timeline, when a time-sensitive window approaches (well-visit, a registration that sells out, a sign-up deadline), then the app surfaces it with enough lead time to act, assigned to a responsible adult.
+- Given a request for an activity, when the app proposes options, then each fits the child's age, the family calendar, and the budget; it drafts the registration and only books a paid activity with explicit per-instance approval.
+
+**Health & wellbeing (§6.8)**
+- Given the whole-family health view (appointments, meds, refills), when a refill is near depletion or a routine visit is due, then the app proactively prompts "time to book/refill" before the gap, scoped to the right member by role.
+- Given approval to book, when the app schedules an appointment, then it fits the family calendar, arranges a ride if needed, and assembles a visit pack (history, questions, insurance doc) — booking/financial steps are gated, never automatic.
+
+**Money & household admin (§6.9)**
+- Given the family's recurring spend, when reviewed, then the app flags renewals/price-creep/unused subscriptions and produces a fair co-parent expense split with an auditable ledger both sides can see.
+- Given a bill or reimbursement, when the user approves, then the app pays it / files the claim / settles the co-parent balance — no payment or irreversible financial action ever happens without explicit per-instance approval.
+
+**Eldercare & extended family (§6.10)**
+- Given care tasks shared across siblings, when one is done (meds given, appointment owned), then the shared care log reflects it so nothing is dropped or duplicated.
+- Given a care need, when distributed, then the app assigns it across the sibling group with what's needed, arranges transport to appointments on approval, and keeps an auditable care record.
+
+**Travel, logistics & memories (§6.11)**
+- Given an itinerary, weather, and each member, when a trip is planned, then the app generates a packing list and holds confirmations/passports retrievable at the moment of need.
+- Given a trip goal within budget and calendar, when the app plans it, then it returns an approvable end-to-end plan (transport, lodging, rides), and afterward compiles a shared memory album.
+
+**Onboarding & zero-setup (§8)**
+- Given a brand-new primary user, when they capture their first item (snap one flyer), then they see real value within the first session — a correctly filed event — without ever facing an empty calendar to fill; "aha" is reached in < 2 minutes.
+- Given a non-primary member added by phone number or email, when the family assigns them their first item, then they receive and can act on it through their existing channel (push or SMS/iMessage/WhatsApp) without creating an account or doing any setup.
+
 ### 16.3 Phase launch gates
 No phase ships until its headline outcome is demonstrated on real families:
 - **Phase 0 (Wedge):** ≥ 80% of test families say capture + conflict radar + Brief caught something they'd otherwise have missed, within the first week.
@@ -355,3 +435,11 @@ No phase ships until its headline outcome is demonstrated on real families:
 - **Phase 2 (Provision & act):** families let the app complete a closed-loop action (order/booking) end-to-end and rate the result trustworthy.
 - **Phase 3 (Whole family):** ≥ 1.5 active members per household sustained over 4 weeks (anti single-user-gravity proven).
 - **Every phase:** north-star metric (proactive actions accepted per family) trends up, and agent-action approval rate stays above an agreed trust threshold.
+
+### 16.4 Cross-cutting / platform criteria (apply to the app as a whole)
+- **AC-X1 — Offline-first capture:** capture works with no connection; queued items sync on reconnect with no loss and no duplication.
+- **AC-X2 — Idempotent, recoverable actions:** an agent action retried after a failure/crash never double-executes (no double-booking, double-order, double-send); no data is lost on crash.
+- **AC-X3 — Internationalization:** dates, times, numbers, and currencies localize correctly; the app is usable in at least one right-to-left locale with no clipping or mirrored-layout breakage.
+- **AC-X4 — Security:** data is encrypted in transit and at rest; the role-based access-control suite passes; secret-scanning and a pre-launch security review are clean.
+- **AC-X5 — Performance at scale:** a large household (many members, a year of calendar/tasks/documents) stays within the §16.1 performance budget; no operation blocks the UI.
+- **AC-X6 — Auditability:** every agent action is fully reconstructable from the activity log — who/what/why/when, with its undo — and the log cannot be silently edited.

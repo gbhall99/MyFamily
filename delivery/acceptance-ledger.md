@@ -9,22 +9,23 @@
 > AC). Never mark `PASS` by assertion. Status values: `TODO · IN-PROGRESS · PASS · FAIL · BLOCKED`.
 
 ## Summary
-`PASS 19 / TOTAL 63 · IN-PROGRESS 38 · BLOCKED 5 · FAIL 0 · TODO 1`
+`PASS 19 / TOTAL 87 · IN-PROGRESS 47 · BLOCKED 5 · FAIL 0 · TODO 16`
 
-> **Everything autonomously verifiable is now done (19 PASS) or evidenced (38 IN-PROGRESS).** Only
-> **1 TODO** and **5 BLOCKED** remain, and every one needs a resource that cannot be produced in this
-> environment — never a coding gap:
-> - **AC-DG1 (TODO)** — a human **design-lead sign-off**.
-> - **5 BLOCKED launch gates** — **real-family studies** over weeks (AC-LG0–LGE).
-> - Each **IN-PROGRESS** row has its tested logic/render half done and names the gated half: **live
->   credentials** (calendar/grocery delivery), a **production model + data** (real-world OCR accuracy,
->   live proactivity), **on-device** timing + screen-reader certification, **visual/native** runner for
->   200%-reflow & RTL, or **human review** (privacy, design sign-off).
+> **The acceptance-criteria set is now complete.** The ledger was extended from 63 → **87 AC** so it
+> covers the *full* app spec: every feature pillar (§6.1–6.11 incl. Kids/School, Health, Money,
+> Eldercare, Travel), every agentic tier (Brain self-maintenance, auto-resolve, auto-task generation,
+> staples reorder, neutral co-parent comms, autonomous filing), onboarding/zero-setup, and the new
+> **cross-cutting** platform criteria (offline, idempotency, i18n, security, scale, auditability).
+> - The **24 newly-added AC** (AC-P20–P37, AC-X1–X6) are the now-defined *targets*; most are **TODO**
+>   (unbuilt feature domains, several needing live integrations) with a handful **IN-PROGRESS** where
+>   core logic already exists. This is the honest gap between "spec complete" and "app complete."
+> - The original 63 are unchanged: 19 PASS, the rest IN-PROGRESS/BLOCKED on live credentials, a
+>   production model, on-device/device certification, or human review/studies.
 
-_Last updated: 2026-06-14 · Stage: 11 iterations — Expo+TS monorepo, design-token system + audits,
-full feature-pillar logic, rendered a11y-tested components/screens + Expo shell, and mock-provider /
-eval harnesses (sync, grocery, extractor ≥90%, proactivity ≥70%, 5-dataset validation). CI green:
-lint + typecheck + 125 tests._
+_Last updated: 2026-06-15 · Stage: acceptance-criteria set **completed** (63 → 87) to cover the full
+app spec — all feature pillars, agentic tiers, onboarding, and cross-cutting platform criteria.
+Build state of the original 63 unchanged (19 PASS, CI green); the 24 new AC are the defined targets,
+mostly unbuilt feature domains._
 
 **Legend / honesty rules:** `PASS` = a binding mechanism is fully implemented AND gated by a
 re-runnable check. `IN-PROGRESS` = the foundation/logic is evidenced by passing tests but the
@@ -71,6 +72,24 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | AC-P17 | Trust & safety | Under-13: minimized data, verifiable consent, retention disclosed, provably excluded from training | Data-flow tests + privacy review | IN-PROGRESS | role scoping for child via `canAccess` (`iteration4.test.ts`); consent flow + privacy review pending |
 | AC-P18 | Trust & safety | Teen privacy boundaries (location/chat/visibility) honored, never silently overridden | Access-control tests | IN-PROGRESS | `teenBoundaryHonoured` tested (`iteration4.test.ts`); full chat/visibility coverage pending |
 | AC-P19 | Trust & safety | Cross-member access role-scoped; verified by access-control test suite | Access-control test suite | IN-PROGRESS | `canAccess` role scopes tested (`iteration4.test.ts`); expand to all resources |
+| AC-P20 | Brain self-maintenance | Updates known facts with a source, flags only ambiguous changes, never silently overwrites | Entity-resolution + change-log tests | IN-PROGRESS | `resolveProvider` dedup/flag (`capture.test.ts`); fact-change/source-trace pending |
+| AC-P21 | Calendar auto-resolve | On approval, executes the chosen resolution (carpool/reschedule/sitter) + calendar update + undo | E2E coordination test | IN-PROGRESS | resolutions offered (`conflict.test.ts`); execution + booking pending live integrations |
+| AC-P22 | Auto-task generation | Creates dated/assigned tasks for implied obligations w/ lead time; no duplicates | Generation tests on fixtures | TODO | not built |
+| AC-P23 | Meals — staples reorder | Reorders staples before run-out at autonomy level, within budget, logged | Reorder-engine tests | IN-PROGRESS | grocery cart/diff/order built (`integrations.test.ts`); depletion tracking + reorder loop pending |
+| AC-P24 | Co-parent neutral comms | Neutral factual rephrase preserving meaning, logged, never sent w/o approval | Rephrase eval + behavior tests | TODO | not built (needs model) |
+| AC-P25 | Autonomous filing | Files doc to right member/category, tracks obligation to done, retrieves in <5s | Filing + retrieval tests | IN-PROGRESS | `DocStore`/`completeTask` retrieval+tracking (`iteration9.test.ts`); auto-filing classifier pending |
+| AC-P26 | Kids & school | Surfaces time-sensitive child windows (well-visit, sell-out registration) w/ lead time | Timeline + reminder tests | TODO | not built |
+| AC-P27 | Activity concierge | Proposes age/calendar/budget-fit activities; drafts registration; books only w/ per-instance consent | E2E + guardrail tests | TODO | not built (needs live booking) |
+| AC-P28 | Health view | Whole-family health view; proactive "time to book/refill" before the gap | View + reminder tests | TODO | not built |
+| AC-P29 | Health booking | Books appt on approval, fits calendar, assembles visit pack; booking gated | E2E vs sandbox + guardrail | TODO | not built (needs live booking) |
+| AC-P30 | Money — leaks/split | Flags renewals/price-creep; fair co-parent split with auditable shared ledger | Detector + ledger tests | TODO | not built |
+| AC-P31 | Money — act | Pay-on-approval / file reimbursement / settle balance; never pays w/o per-instance approval | E2E + financial guardrail | TODO | not built (needs payments + per-instance gate) |
+| AC-P32 | Eldercare log | Shared sibling care log prevents dropped/duplicated tasks | Shared-log integration tests | TODO | not built |
+| AC-P33 | Eldercare follow-up | Distributes care tasks, arranges transport on approval, auditable record | E2E coordination tests | TODO | not built |
+| AC-P34 | Travel — trip brain | Packing list from itinerary+weather+member; confirmations retrievable at need | Generation + retrieval tests | TODO | not built |
+| AC-P35 | Travel — end-to-end | Approvable end-to-end trip plan within budget/calendar; memory album after | E2E + guardrail tests | TODO | not built (needs live booking) |
+| AC-P36 | Onboarding aha | First capture delivers a filed event with no empty-calendar setup; aha < 2 min | First-run flow test | IN-PROGRESS | capture pipeline + extractor + CaptureSheet built; <2-min aha needs user study |
+| AC-P37 | Zero-setup member | Non-primary member added by phone/email receives + acts on first item w/o account | E2E fallback-channel test | IN-PROGRESS | `reachChannel` fallback logic (`iteration9.test.ts`); live channel delivery needs creds |
 
 ## C. Product — Launch gates (SPEC §16.3, inherently human-validated)
 
@@ -81,6 +100,17 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | AC-LG2 | Phase 2 Provision | Families let app complete a closed-loop action end-to-end and rate it trustworthy | Human-validation study | BLOCKED | needs real-family study + live integrations (§7 gate) |
 | AC-LG3 | Phase 3 Whole family | ≥1.5 active members per household sustained over 4 weeks | Usage-metric study | BLOCKED | needs live cohort over 4 weeks (§7 gate) |
 | AC-LGE | Every phase | North-star (proactive actions accepted/family) trends up; approval rate above trust threshold | Metrics dashboard + sign-off | BLOCKED | needs production telemetry + sign-off (§7 gate) |
+
+## C2. Product — Cross-cutting / platform (SPEC §16.4)
+
+| ID | Criterion (short) | How verified | Status | Evidence |
+|---|---|---|---|---|
+| AC-X1 | Offline-first capture: queued offline, syncs with no loss/dup | Offline + sync integration tests | TODO | not built (needs sync layer) |
+| AC-X2 | Idempotent, recoverable actions; no double-execute, no data loss on crash | Idempotency + crash-recovery tests | TODO | not built |
+| AC-X3 | i18n: dates/times/numbers/currency localize; usable RTL, no clipping | Pseudo-loc + RTL + locale tests | IN-PROGRESS | `pseudoLocalize`/`fitsBudget` (`localization.test.ts`); full locale + RTL visual pending |
+| AC-X4 | Security: encrypted in transit/at rest; RBAC suite; secret-scan + review clean | Security tests + review | TODO | RBAC `canAccess` partial; encryption/pen-test/review pending |
+| AC-X5 | Performance at scale; no UI-blocking operation | Perf budget at scale | IN-PROGRESS | perf-budget proxy (`performance.test.ts`); on-device at-scale timing pending |
+| AC-X6 | Auditability: every agent action reconstructable from the log; log not silently editable | Activity-log integrity tests | IN-PROGRESS | append-only `logEntry` w/ reason+undo (`approve.test.ts`); tamper-evidence pending |
 
 ## D. Design — Global Definition of Done (DESIGN_SPEC §13.1)
 
