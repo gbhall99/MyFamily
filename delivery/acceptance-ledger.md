@@ -9,7 +9,7 @@
 > AC). Never mark `PASS` by assertion. Status values: `TODO · IN-PROGRESS · PASS · FAIL · BLOCKED`.
 
 ## Summary
-`PASS 19 / TOTAL 87 · IN-PROGRESS 47 · BLOCKED 5 · FAIL 0 · TODO 16`
+`PASS 19 / TOTAL 87 · IN-PROGRESS 49 · BLOCKED 5 · FAIL 0 · TODO 14`
 
 > **The acceptance-criteria set is now complete.** The ledger was extended from 63 → **87 AC** so it
 > covers the *full* app spec: every feature pillar (§6.1–6.11 incl. Kids/School, Health, Money,
@@ -74,7 +74,7 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | AC-P19 | Trust & safety | Cross-member access role-scoped; verified by access-control test suite | Access-control test suite | IN-PROGRESS | `canAccess` role scopes tested (`iteration4.test.ts`); expand to all resources |
 | AC-P20 | Brain self-maintenance | Updates known facts with a source, flags only ambiguous changes, never silently overwrites | Entity-resolution + change-log tests | IN-PROGRESS | `resolveProvider` dedup/flag (`capture.test.ts`); fact-change/source-trace pending |
 | AC-P21 | Calendar auto-resolve | On approval, executes the chosen resolution (carpool/reschedule/sitter) + calendar update + undo | E2E coordination test | IN-PROGRESS | resolutions offered (`conflict.test.ts`); execution + booking pending live integrations |
-| AC-P22 | Auto-task generation | Creates dated/assigned tasks for implied obligations w/ lead time; no duplicates | Generation tests on fixtures | TODO | not built |
+| AC-P22 | Auto-task generation | Creates dated/assigned tasks for implied obligations w/ lead time; no duplicates | Generation tests on fixtures | IN-PROGRESS | `generateTasks` (RSVP/gift/renewal, lead-time, dedup) tested (`taskgen.test.ts`); signal-detection from the Brain pending |
 | AC-P23 | Meals — staples reorder | Reorders staples before run-out at autonomy level, within budget, logged | Reorder-engine tests | IN-PROGRESS | grocery cart/diff/order built (`integrations.test.ts`); depletion tracking + reorder loop pending |
 | AC-P24 | Co-parent neutral comms | Neutral factual rephrase preserving meaning, logged, never sent w/o approval | Rephrase eval + behavior tests | TODO | not built (needs model) |
 | AC-P25 | Autonomous filing | Files doc to right member/category, tracks obligation to done, retrieves in <5s | Filing + retrieval tests | IN-PROGRESS | `DocStore`/`completeTask` retrieval+tracking (`iteration9.test.ts`); auto-filing classifier pending |
@@ -82,7 +82,7 @@ Evidence links are test files / CI steps; re-run with `pnpm run verify`.
 | AC-P27 | Activity concierge | Proposes age/calendar/budget-fit activities; drafts registration; books only w/ per-instance consent | E2E + guardrail tests | TODO | not built (needs live booking) |
 | AC-P28 | Health view | Whole-family health view; proactive "time to book/refill" before the gap | View + reminder tests | TODO | not built |
 | AC-P29 | Health booking | Books appt on approval, fits calendar, assembles visit pack; booking gated | E2E vs sandbox + guardrail | TODO | not built (needs live booking) |
-| AC-P30 | Money — leaks/split | Flags renewals/price-creep; fair co-parent split with auditable shared ledger | Detector + ledger tests | TODO | not built |
+| AC-P30 | Money — leaks/split | Flags renewals/price-creep; fair co-parent split with auditable shared ledger | Detector + ledger tests | IN-PROGRESS | `detectMoneyLeaks` + `splitExpenses`/`settlement` (balanced, deterministic ledger) tested (`money.test.ts`); live bank/subscription feed pending |
 | AC-P31 | Money — act | Pay-on-approval / file reimbursement / settle balance; never pays w/o per-instance approval | E2E + financial guardrail | TODO | not built (needs payments + per-instance gate) |
 | AC-P32 | Eldercare log | Shared sibling care log prevents dropped/duplicated tasks | Shared-log integration tests | TODO | not built |
 | AC-P33 | Eldercare follow-up | Distributes care tasks, arranges transport on approval, auditable record | E2E coordination tests | TODO | not built |
