@@ -21,3 +21,7 @@ export * from "./taskgen.js";
 export * from "./money.js";
 export * from "./brain.js";
 export * from "./audit.js";
+export * from "./offline.js";
+export * from "./idempotency.js";
+export * from "./kids.js";
+export * from "./care.js";
