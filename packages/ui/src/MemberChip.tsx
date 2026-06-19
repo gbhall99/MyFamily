@@ -20,7 +20,7 @@ export function MemberChip({ name, accentIndex, theme = "light" }: MemberChipPro
 
   return (
     <View
-      accessibilityRole="image"
+      role="img"
       accessibilityLabel={name}
       style={{
         backgroundColor: accent,

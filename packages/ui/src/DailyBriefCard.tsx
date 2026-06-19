@@ -21,8 +21,8 @@ export interface BriefVM {
 function Section({ title, items, theme }: { title: string; items: string[]; theme: ThemeName }) {
   const t = themes[theme];
   return (
-    <View accessibilityRole="summary" style={{ marginBottom: space[3] }}>
-      <Text accessibilityRole="header" style={{ color: t.text, fontSize: typeRoles.label.size, fontWeight: "600" }}>
+    <View role="summary" style={{ marginBottom: space[3] }}>
+      <Text role="heading" style={{ color: t.text, fontSize: typeRoles.label.size, fontWeight: "600" }}>
         {title}
       </Text>
       {items.map((it, i) => (
@@ -37,17 +37,17 @@ function Section({ title, items, theme }: { title: string; items: string[]; them
 export function DailyBriefCard({ brief, theme = "light", onDecide }: { brief: BriefVM; theme?: ThemeName; onDecide?: (id: string) => void }) {
   const t = themes[theme];
   return (
-    <View accessibilityRole="group" accessibilityLabel="Daily Brief" style={{ backgroundColor: t.surface, borderRadius: radius.lg, padding: space[4] }}>
+    <View role="group" accessibilityLabel="Daily Brief" style={{ backgroundColor: t.surface, borderRadius: radius.lg, padding: space[4] }}>
       <Section title="Today" items={brief.logistics} theme={theme} />
       <Section title="Heads-up" items={brief.conflicts} theme={theme} />
-      <View accessibilityRole="summary" style={{ marginBottom: space[3] }}>
-        <Text accessibilityRole="header" style={{ color: t.text, fontSize: typeRoles.label.size, fontWeight: "600" }}>
+      <View role="summary" style={{ marginBottom: space[3] }}>
+        <Text role="heading" style={{ color: t.text, fontSize: typeRoles.label.size, fontWeight: "600" }}>
           Needs a tap
         </Text>
         {brief.decisions.map((d) => (
           <Pressable
             key={d.id}
-            accessibilityRole="button"
+            role="button"
             accessibilityLabel={d.prompt}
             onPress={() => onDecide?.(d.id)}
             style={{ minHeight: minTouchTarget.ios, justifyContent: "center" }}

@@ -17,7 +17,7 @@ import {
 } from "@myfamily/ui";
 import { assembleBrief, detectConflicts, planGoal, type FamilyEvent, type Plan } from "@myfamily/core";
 import { space, radius, type as typeRoles } from "@myfamily/tokens";
-import { AppHeader, Card, Kicker, Screen, useTheme } from "./chrome.js";
+import { AppHeader, Card, Kicker, Screen, shadow, useTheme } from "./chrome.js";
 
 export const MEMBERS: Member[] = [
   { name: "Maya", accentIndex: 0 },
@@ -39,12 +39,14 @@ export function TodayScreen({
   log,
   handled,
   setHandled,
+  captured,
   onDecision,
   onCapture,
 }: {
   log: ActivityEntry[];
   handled: string[];
   setHandled: React.Dispatch<React.SetStateAction<string[]>>;
+  captured: string[];
   onDecision: () => void;
   onCapture: (k: CaptureKind) => void;
 }) {
@@ -110,9 +112,9 @@ export function TodayScreen({
           <Kicker>Needs a tap</Kicker>
           <div style={{ display: "flex", flexDirection: "column", gap: space[3], marginTop: space[2] }}>
             {suggestions.map((s) => (
-              <Card key={s.id} style={{ padding: space[3] }}>
+              <div key={s.id} style={{ borderRadius: radius.lg, boxShadow: shadow(theme) }}>
                 <ApproveChip suggestion={s} log={log} theme={theme} onDecision={onDecision} />
-              </Card>
+              </div>
             ))}
           </div>
         </section>
@@ -120,8 +122,16 @@ export function TodayScreen({
         <div style={{ marginTop: space[5] }}>
           <Card>
             <strong style={{ fontSize: typeRoles.label.size }}>Today</strong>
+            {captured.map((l, i) => (
+              <div key={`c${i}`} style={{ display: "flex", gap: space[2], marginTop: space[2], color: t.text }}>
+                <span aria-hidden style={{ color: t.statusSuccess }}>＋</span>
+                <span style={{ fontSize: typeRoles.bodyM.size, fontWeight: 600 }}>
+                  {l} <span style={{ color: t.statusSuccess, fontSize: 11, fontWeight: 700 }}>· just added</span>
+                </span>
+              </div>
+            ))}
             {brief.logistics.map((l, i) => (
-              <div key={i} style={{ display: "flex", gap: space[2], marginTop: i === 0 ? space[2] : 6, color: t.textSecondary }}>
+              <div key={i} style={{ display: "flex", gap: space[2], marginTop: i === 0 && captured.length === 0 ? space[2] : 6, color: t.textSecondary }}>
                 <span aria-hidden style={{ color: t.brand }}>•</span>
                 <span style={{ fontSize: typeRoles.bodyM.size }}>{l}</span>
               </div>

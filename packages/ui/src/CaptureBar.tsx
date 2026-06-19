@@ -20,14 +20,14 @@ export function CaptureBar({ theme = "light", onCapture }: { theme?: ThemeName; 
   const t = themes[theme];
   return (
     <View
-      accessibilityRole="toolbar"
+      role="toolbar"
       accessibilityLabel="Add something"
       style={{ flexDirection: "row", gap: space[2], backgroundColor: t.surface, padding: space[2], borderRadius: radius.lg }}
     >
       {ACTIONS.map((a) => (
         <Pressable
           key={a.kind}
-          accessibilityRole="button"
+          role="button"
           accessibilityLabel={a.label}
           onPress={() => onCapture?.(a.kind)}
           style={{

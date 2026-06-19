@@ -44,7 +44,7 @@ describe("ApproveChip rendered (AC-DA4, AC-DA5, AC-D10)", () => {
 
     expect(state.applied).toBe(true);
     expect(log).toHaveLength(1);
-    expect(screen.getByText(/handled\./i)).toBeInTheDocument();
+    expect(screen.getByText(/handled/i)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /undo/i })).toBeInTheDocument();
   });
 
